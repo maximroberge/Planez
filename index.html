@@ -300,10 +300,10 @@
 <body>
   <div class="app">
     <header>
-      <h1>Planificateur IA – Affectation globale (v3.2)</h1>
+      <h1>Planificateur IA – Affectation globale (v3.3)</h1>
       <p>
         Répartition globale des employés sur l’ensemble des projets, en respectant :
-        <strong>Compétences > Évaluation > Distance</strong>.
+        <strong>Disponibilité > Compétences > Évaluation > Distance</strong>.
       </p>
       <div class="tagline">
         Mode Haut Volume : 150 employés générés / 25 projets.
@@ -317,7 +317,6 @@
             <h2>1. Directives et Contrôles</h2>
             <small id="databaseSummary">Base de données : 150 employés / 25 projets.</small>
           </div>
-          <div class="badge">Mode global</div>
         </div>
 
         <div style="margin-top:10px; margin-bottom:4px;">
@@ -334,7 +333,7 @@
           <label style="margin-top:8px;">Projet</label>
           <select id="fixedProjectSelect"></select>
 
-          <label>Employé</label>
+          <label>Employé</select>
           <select id="fixedEmployeeSelect"></select>
 
           <button id="addFixedBtn">Ajouter la directive</button>
@@ -394,6 +393,10 @@
         const employees = [];
         const uniqueNames = new Set();
 
+        // 🚨 MISE À JOUR : Disponibilités Aléatoires
+        // 3/5 chances d'être disponible
+        const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
+
         for (let i = 1; i <= count; i++) {
             let nom;
             do {
@@ -404,7 +407,6 @@
             const id = `${prefix}-${String(i).padStart(3, '0')}`;
             const evaluation = parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1)); // 3.5 à 5.0
             const distanceKm = Math.floor(Math.random() * 45) + 5; // 5 à 49 km
-            const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
             const competenceRange = metier === 'manoeuvre' ? { min: 2, max: 4 } : { min: 3, max: 5 };
 
             employees.push({
@@ -412,7 +414,7 @@
                 nom,
                 metier,
                 competences: getRandomSkills(metier, competenceRange.min, competenceRange.max),
-                disponibilite: getRandomElement(disponibilites),
+                disponibilite: getRandomElement(disponibilites), // Assignation aléatoire
                 distanceKm,
                 evaluation
             });
@@ -432,7 +434,7 @@
 
 
     // =========================
-    // 25 PROJETS
+    // 25 PROJETS (DONNÉES INCHANGÉES)
     // =========================
     const projects = [
       // Janvier 2026
@@ -511,14 +513,18 @@
 
 
     function scoreEmployeeForProject(emp, project, employeeLoad) {
+      // 🚨 MISE À JOUR : Filtre de Disponibilité (Priorité Absolue)
+      // Seuls les employés "Disponible" sont considérés
+      if (!emp.disponibilite.toLowerCase().includes("disponible")) return null; 
+
       if (emp.metier !== project.metier) return null;
-      if (!emp.disponibilite.toLowerCase().includes("disponible")) return null;
 
       const required = project.competencesRequises.map(c => c.toLowerCase());
       const empSkills = emp.competences.map(c => c.toLowerCase());
 
       const matched = required.filter(r => empSkills.includes(r)).length;
       
+      // Filtre : doit avoir au moins 1 compétence requise
       if (matched === 0) return null; 
 
       const competenceScore = matched / required.length;
@@ -576,13 +582,14 @@
 
         let status = 'assigned';
         let reason = null;
-
-        if (emp.metier !== proj.metier) {
-            status = 'conflict_metier';
-            reason = `Métier non compatible (${emp.metier} vs ${proj.metier})`;
-        } else if (!emp.disponibilite.toLowerCase().includes("disponible")) {
+        
+        // 🚨 MISE À JOUR : Vérification de la disponibilité du candidat fixé
+        if (!emp.disponibilite.toLowerCase().includes("disponible")) {
             status = 'conflict_dispo';
             reason = `Employé non disponible (${emp.disponibilite})`;
+        } else if (emp.metier !== proj.metier) {
+            status = 'conflict_metier';
+            reason = `Métier non compatible (${emp.metier} vs ${proj.metier})`;
         } else if (assignments[proj.id].length >= proj.slots) {
             status = 'conflict_slots';
             reason = `Projet déjà complet (${proj.slots} slots remplis)`;
@@ -880,7 +887,7 @@
       employees.forEach(e => {
         const opt = document.createElement("option");
         opt.value = e.id;
-        opt.textContent = `${e.nom} (${e.metier} - ${e.id})`;
+        opt.textContent = `${e.nom} (${e.metier} - ${e.id} | Dispo: ${e.disponibilite})`;
         fixedEmployeeSelect.appendChild(opt);
       });
     }
