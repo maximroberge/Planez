@@ -2,9 +2,10 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Planif IA – Affectation globale (v2)</title>
+  <title>Planif IA – Affectation globale (HAUT VOLUME FIXE)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Styles CSS inchangés pour une meilleure présentation */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -132,7 +133,7 @@
     .project-meta span {
       margin-right: 8px;
     }
-
+    /* Styles pour les résultats (inchangés) */
     .result-header {
       display: flex;
       justify-content: space-between;
@@ -175,7 +176,7 @@
       gap: 8px;
     }
     .assignment-card {
-      background: #0f172a; /* Changement pour la carte d'affectation */
+      background: #0f172a;
       border-radius: 12px;
       padding: 10px;
       border: 1px solid #1e293b;
@@ -246,7 +247,6 @@
       color: #34d399;
     }
     
-    /* Style pour la barre de score */
     .score-bar-container {
       background: #1e293b;
       border-radius: 4px;
@@ -274,13 +274,13 @@
 <body>
   <div class="app">
     <header>
-      <h1>Planificateur IA – Affectation globale (v2)</h1>
+      <h1>Planificateur IA – Affectation globale (v3)</h1>
       <p>
         Répartition globale des employés sur l’ensemble des projets, en respectant :
         <strong>Compétences > Évaluation > Distance</strong>.
       </p>
       <div class="tagline">
-        Nouvelles fonctionnalités : Transparence des conflits de directives fixes et amélioration de l'affichage du score.
+        Mode Haut Volume : 150 employés générés / 25 projets. La planification est plus longue.
       </div>
     </header>
 
@@ -289,7 +289,7 @@
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
           <div>
             <h2>1. Directives et Contrôles</h2>
-            <small>Base de données : 35 employés / 7 projets.</small>
+            <small id="databaseSummary">Base de données : 150 employés / 25 projets.</small>
           </div>
           <div class="badge">Mode global</div>
         </div>
@@ -339,195 +339,114 @@
   </div>
 
   <script>
-    // =========================
-    // 35 EMPLOYÉS
-    // =========================
-    const employees = [
-      // MÉCANICIENS (11)
-      { id:"M-001", nom:"François Bouchard", metier:"mecanicien",
-        competences:["Alignement","Hydraulique","Maintenance préventive","Réducteur"],
-        disponibilite:"Disponible", distanceKm:12, evaluation:4.5 },
-      { id:"M-002", nom:"Éric Leblanc", metier:"mecanicien",
-        competences:["Pneumatique","Hydraulique","Maintenance corrective"],
-        disponibilite:"Disponible", distanceKm:35, evaluation:4.0 },
-      { id:"M-003", nom:"Tommy Beaulieu", metier:"mecanicien",
-        competences:["Alignement","Usinage","Maintenance préventive"],
-        disponibilite:"Sur chantier", distanceKm:20, evaluation:3.8 },
-      { id:"M-004", nom:"Gabriel Renaud", metier:"mecanicien",
-        competences:["Hydraulique","Réducteur","Analyse vibration"],
-        disponibilite:"Disponible", distanceKm:18, evaluation:4.7 },
-      { id:"M-005", nom:"Steve Caron", metier:"mecanicien",
-        competences:["Maintenance préventive","Montage de convoyeur"],
-        disponibilite:"Disponible", distanceKm:8, evaluation:4.2 },
-      { id:"M-006", nom:"Nicolas Girard", metier:"mecanicien",
-        competences:["Pneumatique","Alignement"],
-        disponibilite:"En congé", distanceKm:40, evaluation:3.9 },
-      { id:"M-007", nom:"Philippe Boivin", metier:"mecanicien",
-        competences:["Hydraulique","Maintenance préventive","Montage de convoyeur"],
-        disponibilite:"Disponible", distanceKm:25, evaluation:4.3 },
-      { id:"M-008", nom:"Luc Desjardins", metier:"mecanicien",
-        competences:["Usinage","Maintenance corrective"],
-        disponibilite:"Disponible", distanceKm:30, evaluation:3.7 },
-      { id:"M-009", nom:"André Marcoux", metier:"mecanicien",
-        competences:["Alignement","Montage de convoyeur"],
-        disponibilite:"Disponible", distanceKm:16, evaluation:4.1 },
-      { id:"M-010", nom:"Patrick Drouin", metier:"mecanicien",
-        competences:["Réducteur","Maintenance préventive"],
-        disponibilite:"Disponible", distanceKm:27, evaluation:4.0 },
-      { id:"M-011", nom:"Yanick Laramée", metier:"mecanicien",
-        competences:["Hydraulique","Analyses vibration"],
-        disponibilite:"Disponible", distanceKm:22, evaluation:3.9 },
+    
+    // ==========================================================
+    // GÉNÉRATION DE DONNÉES HAUT VOLUME (150 Employés / 25 Projets)
+    // ==========================================================
 
-      // SOUDEURS (11)
-      { id:"S-001", nom:"Jean Tremblay", metier:"soudeur",
-        competences:["MIG","TIG","Espaces clos","ASP"],
-        disponibilite:"Disponible", distanceKm:10, evaluation:4.8 },
-      { id:"S-002", nom:"Marc Gagnon", metier:"soudeur",
-        competences:["MIG","Lecture plan","Pont roulant"],
-        disponibilite:"Sur chantier", distanceKm:22, evaluation:4.1 },
-      { id:"S-003", nom:"Sophie Lavoie", metier:"soudeur",
-        competences:["TIG inox","Soudure inox","Lecture plan"],
-        disponibilite:"Disponible", distanceKm:15, evaluation:4.9 },
-      { id:"S-004", nom:"Patrick Ouellet", metier:"soudeur",
-        competences:["MIG","ARC","Espaces clos"],
-        disponibilite:"Disponible", distanceKm:32, evaluation:4.0 },
-      { id:"S-005", nom:"David Roy", metier:"soudeur",
-        competences:["TIG","TIG inox","Soudure inox"],
-        disponibilite:"Disponible", distanceKm:5, evaluation:4.6 },
-      { id:"S-006", nom:"Alexandre Morin", metier:"soudeur",
-        competences:["MIG","Pont roulant"],
-        disponibilite:"Disponible", distanceKm:40, evaluation:3.8 },
-      { id:"S-007", nom:"Julie Fortin", metier:"soudeur",
-        competences:["TIG","Espaces clos","ASP"],
-        disponibilite:"En congé", distanceKm:18, evaluation:4.2 },
-      { id:"S-008", nom:"Martin Côté", metier:"soudeur",
-        competences:["MIG","Lecture plan","Soudure inox"],
-        disponibilite:"Disponible", distanceKm:28, evaluation:4.3 },
-      { id:"S-009", nom:"Samuel Lapierre", metier:"soudeur",
-        competences:["MIG","TIG","Pont roulant"],
-        disponibilite:"Disponible", distanceKm:14, evaluation:4.4 },
-      { id:"S-010", nom:"Jonathan Gosselin", metier:"soudeur",
-        competences:["ARC","Espaces clos"],
-        disponibilite:"Disponible", distanceKm:19, evaluation:3.9 },
-      { id:"S-011", nom:"Anthony Morissette", metier:"soudeur",
-        competences:["TIG inox","Lecture plan"],
-        disponibilite:"Disponible", distanceKm:12, evaluation:4.1 },
+    const allSkills = {
+        mecanicien: ["Alignement", "Hydraulique", "Maintenance préventive", "Maintenance corrective", "Réducteur", "Pneumatique", "Usinage", "Montage de convoyeur", "Analyse vibration"],
+        soudeur: ["MIG", "TIG", "ARC", "TIG inox", "Soudure inox", "Lecture plan", "Pont roulant", "Espaces clos", "ASP"],
+        tuyauteur: ["Filetage", "Raccordement de vannes", "Lecture isométriques", "ASME B31.3", "Assemblage tuyauterie haute pression", "Soudure orbitale", "Test d'étanchéité"],
+        manoeuvre: ["Manutention", "Nettoyage industriel", "Élingage de base", "Travail en hauteur", "Espaces clos", "Permis cariste", "Sécurité SIMDUT"]
+    };
 
-      // TUYAUTEURS (6)
-      { id:"T-001", nom:"Maxime Poulin", metier:"tuyauteur",
-        competences:["Lecture isométriques","TIG inox","ASME B31.3"],
-        disponibilite:"Disponible", distanceKm:14, evaluation:4.5 },
-      { id:"T-002", nom:"Olivier Hamel", metier:"tuyauteur",
-        competences:["Filetage","Assemblage tuyauterie haute pression"],
-        disponibilite:"Disponible", distanceKm:33, evaluation:4.0 },
-      { id:"T-003", nom:"Carl Bernier", metier:"tuyauteur",
-        competences:["Lecture isométriques","Assemblage tuyauterie haute pression"],
-        disponibilite:"Sur chantier", distanceKm:20, evaluation:3.9 },
-      { id:"T-004", nom:"Pascal Gervais", metier:"tuyauteur",
-        competences:["TIG inox","ASME B31.3"],
-        disponibilite:"Disponible", distanceKm:27, evaluation:4.4 },
-      { id:"T-005", nom:"Denis Rivard", metier:"tuyauteur",
-        competences:["Lecture isométriques","Filetage"],
-        disponibilite:"Disponible", distanceKm:18, evaluation:4.0 },
-      { id:"T-006", nom:"Louis-Philippe Nadeau", metier:"tuyauteur",
-        competences:["ASME B31.3","Assemblage tuyauterie haute pression"],
-        disponibilite:"Disponible", distanceKm:30, evaluation:3.8 },
+    const names = ["Alexandre", "Marie", "Charles", "Sophie", "David", "Julie", "Gabriel", "Audrey", "Louis", "Nadia", "Thomas", "Isabelle", "Nicolas", "Rachel", "Philippe", "Cynthia"];
+    const surnames = ["Tremblay", "Gagnon", "Côté", "Bouchard", "Gauthier", "Dion", "Proulx", "Richard", "Girard", "Lapointe"];
+    
+    function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
 
-      // MANŒUVRES (7)
-      { id:"N-001", nom:"Kevin Dubé", metier:"manoeuvre",
-        competences:["Manutention","Nettoyage industriel","Élingage de base"],
-        disponibilite:"Disponible", distanceKm:6, evaluation:4.0 },
-      { id:"N-002", nom:"Jonathan Martel", metier:"manoeuvre",
-        competences:["Manutention","Travail en hauteur"],
-        disponibilite:"Disponible", distanceKm:19, evaluation:3.7 },
-      { id:"N-003", nom:"Stéphanie Gagné", metier:"manoeuvre",
-        competences:["Nettoyage industriel","Espaces clos"],
-        disponibilite:"Sur chantier", distanceKm:24, evaluation:4.3 },
-      { id:"N-004", nom:"Karine Lavoie", metier:"manoeuvre",
-        competences:["Manutention","Travail en hauteur","Espaces clos"],
-        disponibilite:"Disponible", distanceKm:12, evaluation:4.5 },
-      { id:"N-005", nom:"Mathieu Hébert", metier:"manoeuvre",
-        competences:["Nettoyage industriel","Élingage de base"],
-        disponibilite:"Disponible", distanceKm:30, evaluation:3.9 },
-      { id:"N-006", nom:"Simon Gendron", metier:"manoeuvre",
-        competences:["Manutention","Nettoyage industriel"],
-        disponibilite:"Disponible", distanceKm:16, evaluation:3.8 },
-      { id:"N-007", nom:"Isabelle Côté", metier:"manoeuvre",
-        competences:["Espaces clos","Travail en hauteur"],
-        disponibilite:"Disponible", distanceKm:21, evaluation:4.1 }
-    ];
+    function getRandomSkills(metier, min, max) {
+        const availableSkills = allSkills[metier];
+        const count = Math.floor(Math.random() * (max - min + 1)) + min;
+        const shuffled = availableSkills.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
+    
+    function generateEmployees(metier, count, prefix) {
+        const employees = [];
+        const uniqueNames = new Set();
+
+        for (let i = 1; i <= count; i++) {
+            let nom;
+            do {
+                nom = `${getRandomElement(names)} ${getRandomElement(surnames)}`;
+            } while (uniqueNames.has(nom));
+            uniqueNames.add(nom);
+
+            const id = `${prefix}-${String(i).padStart(3, '0')}`;
+            const evaluation = parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1)); // 3.5 à 5.0
+            const distanceKm = Math.floor(Math.random() * 45) + 5; // 5 à 49 km
+            const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
+            const competenceRange = metier === 'manoeuvre' ? { min: 2, max: 4 } : { min: 3, max: 5 };
+
+            employees.push({
+                id,
+                nom,
+                metier,
+                competences: getRandomSkills(metier, competenceRange.min, competenceRange.max),
+                disponibilite: getRandomElement(disponibilites),
+                distanceKm,
+                evaluation
+            });
+        }
+        return employees;
+    }
+
+    const mecaniciens = generateEmployees('mecanicien', 40, 'M');
+    const soudeurs = generateEmployees('soudeur', 40, 'S');
+    const tuyauteurs = generateEmployees('tuyauteur', 35, 'T');
+    const manoeuvres = generateEmployees('manoeuvre', 35, 'N');
+    
+    const employees = [...mecaniciens, ...soudeurs, ...tuyauteurs, ...manoeuvres];
+
+    // Trier les employés par nom pour le <select> des directives
+    employees.sort((a, b) => a.nom.localeCompare(b.nom));
+
 
     // =========================
-    // PROJETS
+    // 25 PROJETS
     // =========================
     const projects = [
-      {
-        id:"P-101",
-        nom:"Arrêt chaudière – Bécancour",
-        metier:"soudeur",
-        competencesRequises:["MIG","Espaces clos","ASP"],
-        debut:"2025-01-10",
-        fin:"2025-01-18",
-        slots:3
-      },
-      {
-        id:"P-102",
-        nom:"Remplacement convoyeur – Trois-Rivières",
-        metier:"mecanicien",
-        competencesRequises:["Maintenance préventive","Alignement","Hydraulique"],
-        debut:"2025-01-12",
-        fin:"2025-01-25",
-        slots:3
-      },
-      {
-        id:"P-103",
-        nom:"Ligne vapeur HP – Shawinigan",
-        metier:"tuyauteur",
-        competencesRequises:["Lecture isométriques","TIG inox","ASME B31.3"],
-        debut:"2025-01-20",
-        fin:"2025-02-02",
-        slots:2
-      },
-      {
-        id:"P-104",
-        nom:"Nettoyage silo – Bécancour",
-        metier:"manoeuvre",
-        competencesRequises:["Nettoyage industriel","Travail en hauteur","Espaces clos"],
-        debut:"2025-01-15",
-        fin:"2025-01-19",
-        slots:3
-      },
-      {
-        id:"P-105",
-        nom:"Projet inox – Québec",
-        metier:"soudeur",
-        competencesRequises:["TIG inox","Soudure inox","Lecture plan"],
-        debut:"2025-02-01",
-        fin:"2025-02-15",
-        slots:3
-      },
-      {
-        id:"P-106",
-        nom:"Maintenance usine – Laval",
-        metier:"mecanicien",
-        competencesRequises:["Maintenance corrective","Pneumatique"],
-        debut:"2025-01-28",
-        fin:"2025-02-10",
-        slots:2
-      },
-      {
-        id:"P-107",
-        nom:"Projet multi-équipes – Port de Montréal",
-        metier:"manoeuvre",
-        competencesRequises:["Manutention","Élingage de base"],
-        debut:"2025-02-05",
-        fin:"2025-02-20",
-        slots:4
-      }
+      // Janvier 2026
+      { id:"P-101", nom:"Arrêt chaudière – Bécancour", metier:"soudeur", competencesRequises:["MIG","Espaces clos","ASP"], debut:"2026-01-10", fin:"2026-01-18", slots:4 },
+      { id:"P-102", nom:"Remplacement convoyeur – Trois-Rivières", metier:"mecanicien", competencesRequises:["Maintenance préventive","Alignement","Hydraulique"], debut:"2026-01-12", fin:"2026-01-25", slots:5 },
+      { id:"P-103", nom:"Ligne vapeur HP – Shawinigan", metier:"tuyauteur", competencesRequises:["Lecture isométriques","ASME B31.3"], debut:"2026-01-20", fin:"2026-02-02", slots:3 },
+      { id:"P-104", nom:"Nettoyage silo – Bécancour", metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Espaces clos"], debut:"2026-01-15", fin:"2026-01-19", slots:4 },
+      { id:"P-105", nom:"Projet inox – Québec", metier:"soudeur", competencesRequises:["TIG inox","Soudure inox","Lecture plan"], debut:"2026-02-01", fin:"2026-02-15", slots:5 },
+      { id:"P-106", nom:"Maintenance usine – Laval", metier:"mecanicien", competencesRequises:["Maintenance corrective","Pneumatique","Réducteur"], debut:"2026-01-28", fin:"2026-02-10", slots:3 },
+      
+      // Février 2026
+      { id:"P-107", nom:"Installation pompe – Sherbrooke", metier:"mecanicien", competencesRequises:["Hydraulique","Analyse vibration"], debut:"2026-02-05", fin:"2026-02-12", slots:2 },
+      { id:"P-108", nom:"Rénovation tuyauterie – Lévis", metier:"tuyauteur", competencesRequises:["Filetage","Raccordement de vannes","Test d'étanchéité"], debut:"2026-02-10", fin:"2026-02-28", slots:5 },
+      { id:"P-109", nom:"Fabrication de structures – Montréal", metier:"soudeur", competencesRequises:["MIG","Lecture plan","Pont roulant"], debut:"2026-02-18", fin:"2026-03-05", slots:4 },
+      { id:"P-110", nom:"Support construction – Longueuil", metier:"manoeuvre", competencesRequises:["Manutention","Permis cariste"], debut:"2026-02-15", fin:"2026-02-25", slots:6 },
+      { id:"P-111", nom:"Arrêt printemps – Sorel-Tracy", metier:"tuyauteur", competencesRequises:["Lecture isométriques","Assemblage tuyauterie haute pression","Soudure orbitale"], debut:"2026-03-01", fin:"2026-03-15", slots:4 },
+      { id:"P-112", nom:"Optimisation production – Drummondville", metier:"mecanicien", competencesRequises:["Usinage","Alignement"], debut:"2026-02-20", fin:"2026-03-05", slots:2 },
+      { id:"P-113", nom:"Travail en hauteur – Granby", metier:"manoeuvre", competencesRequises:["Travail en hauteur","Élingage de base"], debut:"2026-03-08", fin:"2026-03-12", slots:3 },
+      
+      // Mars 2026
+      { id:"P-114", nom:"Changement de ligne – Thetford Mines", metier:"soudeur", competencesRequises:["TIG","ARC","ASP"], debut:"2026-03-10", fin:"2026-03-20", slots:3 },
+      { id:"P-115", nom:"Réparation Hydraulique – Saint-Jean", metier:"mecanicien", competencesRequises:["Hydraulique","Maintenance corrective"], debut:"2026-03-18", fin:"2026-03-25", slots:2 },
+      { id:"P-116", nom:"Projet TIG Inox – Alma", metier:"soudeur", competencesRequises:["TIG inox","Soudure inox"], debut:"2026-03-25", fin:"2026-04-05", slots:4 },
+      { id:"P-117", nom:"Déplacement machinerie – Val-d'Or", metier:"manoeuvre", competencesRequises:["Manutention","Permis cariste","Élingage de base"], debut:"2026-03-15", fin:"2026-03-30", slots:5 },
+      { id:"P-118", nom:"Tuyauterie Process – Gaspé", metier:"tuyauteur", competencesRequises:["Raccordement de vannes","ASME B31.3","Test d'étanchéité"], debut:"2026-03-28", fin:"2026-04-10", slots:3 },
+      { id:"P-119", nom:"Soudure haute pression – Sept-Îles", metier:"soudeur", competencesRequises:["ARC","Espaces clos"], debut:"2026-04-01", fin:"2026-04-08", slots:2 },
+      
+      // Avril 2026
+      { id:"P-120", nom:"Révision convoyeur – Victoriaville", metier:"mecanicien", competencesRequises:["Montage de convoyeur","Maintenance préventive","Alignement"], debut:"2026-04-05", fin:"2026-04-18", slots:4 },
+      { id:"P-121", nom:"Nettoyage final – Baie-Comeau", metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Sécurité SIMDUT"], debut:"2026-04-10", fin:"2026-04-15", slots:3 },
+      { id:"P-122", nom:"Modernisation usine – Joliette", metier:"mecanicien", competencesRequises:["Hydraulique","Pneumatique","Réducteur"], debut:"2026-04-15", fin:"2026-04-30", slots:5 },
+      { id:"P-123", nom:"Projet ASME – Boucherville", metier:"tuyauteur", competencesRequises:["ASME B31.3","Soudure orbitale"], debut:"2026-04-18", fin:"2026-04-28", slots:2 },
+      { id:"P-124", nom:"Espaces Clos – Rimouski", metier:"manoeuvre", competencesRequises:["Espaces clos","Travail en hauteur"], debut:"2026-04-20", fin:"2026-04-25", slots:4 },
+      { id:"P-125", nom:"Réparation Structure – Trois-Rivières", metier:"soudeur", competencesRequises:["MIG","Lecture plan"], debut:"2026-04-22", fin:"2026-04-30", slots:3 },
     ];
 
+
     // =========================
-    // Helpers dates
+    // Helpers, Logique et UI (inchangés)
     // =========================
     function parseDate(str) {
       return new Date(str + "T00:00:00");
@@ -538,14 +457,10 @@
       const e1 = parseDate(p1.fin);
       const s2 = parseDate(p2.debut);
       const e2 = parseDate(p2.fin);
-      // Le chevauchement se produit si (Début1 <= Fin2) ET (Début2 <= Fin1)
       if (e1 < s2 || e2 < s1) return false;
       return true;
     }
 
-    // =========================
-    // Shuffle util (pour "rebrasser")
-    // =========================
     function shuffleArray(arr) {
       const a = [...arr];
       for (let i = a.length - 1; i > 0; i--) {
@@ -555,15 +470,8 @@
       return a;
     }
 
-    // =========================
-    // Directives fixes
-    // On ajoute un champ 'status' pour la transparence des conflits
-    // =========================
-    let fixedAssignments = []; // { projectId, empId, status: 'pending'|'assigned'|'conflict_overlap'|'conflict_dispo'|'conflict_metier' }
+    let fixedAssignments = [];
 
-    // =========================
-    // Scoring : Compétence > Évaluation > Distance
-    // =========================
     function scoreEmployeeForProject(emp, project, employeeLoad) {
       if (emp.metier !== project.metier) return null;
       if (!emp.disponibilite.toLowerCase().includes("disponible")) return null;
@@ -573,25 +481,20 @@
 
       const matched = required.filter(r => empSkills.includes(r)).length;
       
-      // La compétence est un pré-requis : si match = 0, l'employé n'est pas candidat.
       if (matched === 0) return null; 
 
-      const competenceScore = matched / required.length; // Max 1.0
-      
-      const evalScore = Math.min(Math.max(emp.evaluation, 0), 5) / 5; // Max 1.0
-      
-      const maxDistance = 50; // On normalise la distance par rapport à 50 km
-      const distanceScore = Math.max(0, 1 - (emp.distanceKm / maxDistance)); // Max 1.0 (pour 0 km)
+      const competenceScore = matched / required.length;
+      const evalScore = Math.min(Math.max(emp.evaluation, 0), 5) / 5;
+      const maxDistance = 50;
+      const distanceScore = Math.max(0, 1 - (emp.distanceKm / maxDistance));
 
-      // Pondération fixe : 50 / 30 / 20
       let baseScore =
         0.5 * competenceScore +
         0.3 * evalScore +
         0.2 * distanceScore;
 
-      // Facteur de charge (Load)
       const load = employeeLoad[emp.id] || 0;
-      const loadFactor = 1 / (1 + load * 0.5); // Réduit le score si la charge augmente.
+      const loadFactor = 1 / (1 + load * 0.5);
 
       const finalScore = baseScore * loadFactor;
 
@@ -605,40 +508,35 @@
       };
     }
 
-    // =========================
-    // Planification globale avec directives + shuffle
-    // =========================
     function planAllProjectsGlobally() {
+      // Afficher un message de chargement pour les grands ensembles de données
+      assignmentsContainer.innerHTML = '<p style="color:#38bdf8;">Planification en cours... Cela peut prendre un instant avec un volume de données élevé.</p>';
+      
       const sortedProjects = [...projects].sort(
         (a, b) => parseDate(a.debut) - parseDate(b.debut)
       );
 
-      const assignments = {}; // { projectId: [{ emp, s }] }
-      const employeeAssignments = {}; // { empId: [projectId, ...] }
-      const employeeLoad = {}; // { empId: count }
+      const assignments = {};
+      const employeeAssignments = {};
+      const employeeLoad = {};
 
-      // Initialiser la structure de résultats
       for (const p of sortedProjects) {
         assignments[p.id] = [];
       }
 
-      // 1) Réinitialiser les statuts des directives
       fixedAssignments = fixedAssignments.map(d => ({ ...d, status: 'pending', reason: null }));
       
-      const assignedFixed = new Set(); // Pour éviter de tenter d'assigner la même directive deux fois
-
-      // 2) Appliquer d'abord les directives fixes
+      // 1) Appliquer d'abord les directives fixes
       for (let i = 0; i < fixedAssignments.length; i++) {
         const directive = fixedAssignments[i];
         const proj = projects.find(pr => pr.id === directive.projectId);
         const emp = employees.find(e => e.id === directive.empId);
 
-        if (!proj || !emp) continue; // Si les IDs sont invalides (ne devrait pas arriver avec les selects)
+        if (!proj || !emp) continue;
 
         let status = 'assigned';
         let reason = null;
 
-        // Vérifications
         if (emp.metier !== proj.metier) {
             status = 'conflict_metier';
             reason = `Métier non compatible (${emp.metier} vs ${proj.metier})`;
@@ -649,7 +547,6 @@
             status = 'conflict_slots';
             reason = `Projet déjà complet (${proj.slots} slots remplis)`;
         } else {
-            // Vérification de chevauchement avec les affectations existantes de cet employé
             const alreadyForEmp = employeeAssignments[emp.id] || [];
             let conflit = false;
             let conflitProjId = null;
@@ -672,8 +569,7 @@
         fixedAssignments[i].reason = reason;
 
         if (status === 'assigned') {
-            // L'affectation est réussie
-            const score = scoreEmployeeForProject(emp, proj, employeeLoad) || { // Score pour l'affichage
+            const score = scoreEmployeeForProject(emp, proj, employeeLoad) || {
                 finalScore: 1.0, competenceScore: 1.0, evalScore: emp.evaluation / 5, 
                 distanceScore: Math.max(0, 1 - (emp.distanceKm / 50)), matched: proj.competencesRequises.length, loadFactor: 1 
             };
@@ -683,25 +579,22 @@
             if (!employeeAssignments[emp.id]) employeeAssignments[emp.id] = [];
             employeeAssignments[emp.id].push(proj.id);
             employeeLoad[emp.id] = (employeeLoad[emp.id] || 0) + 1;
-            assignedFixed.add(directive);
         }
       }
 
-      // 3) Compléter les slots restants avec IA + shuffle
+      // 2) Compléter les slots restants avec IA + shuffle
       for (const project of sortedProjects) {
-        // Mélanger la liste des employés à chaque projet pour introduire de l'aléatoire
+        // Le shuffle est la clé pour le bouton "rebrasser"
         const shuffledEmployees = shuffleArray(employees);
 
         for (let slot = assignments[project.id].length; slot < project.slots; slot++) {
           const candidates = [];
 
           for (const emp of shuffledEmployees) {
-            // Un employé ne peut pas être réassigné au même projet (y compris s'il l'a été par directive)
             const alreadyAssignedHere = (assignments[project.id] || [])
               .some(a => a.emp.id === emp.id);
             if (alreadyAssignedHere) continue;
 
-            // Vérification de chevauchement avec les affectations existantes
             const assignedProjects = employeeAssignments[emp.id] || [];
             let conflit = false;
             for (const pid of assignedProjects) {
@@ -723,7 +616,6 @@
             continue;
           }
 
-          // Le meilleur candidat est celui avec le score le plus élevé
           candidates.sort((a, b) => b.s.finalScore - a.s.finalScore);
           const chosen = candidates[0];
 
@@ -740,7 +632,7 @@
     }
 
     // =========================
-    // UI
+    // UI (inchangé)
     // =========================
     const projectsListEl = document.getElementById("projectsList");
     const assignmentsContainer = document.getElementById("assignmentsContainer");
@@ -775,7 +667,6 @@
       }
     }
 
-    // Mise à jour de l'affichage des directives avec le statut et la raison
     function renderFixedList() {
       if (!fixedAssignments.length) {
         fixedList.textContent = "Aucune directive pour l’instant.";
@@ -904,7 +795,7 @@
             `;
 
             card.appendChild(top);
-            card.appendChild(scoreBar); // Nouvelle barre de score
+            card.appendChild(scoreBar);
             card.appendChild(pills);
             card.appendChild(detail);
             list.appendChild(card);
@@ -915,12 +806,15 @@
         assignmentsContainer.appendChild(block);
       }
       
-      // Mettre à jour la liste des directives après la planif
       renderFixedList();
     }
 
-    // Remplir les selects pour directives fixes
     function initFixedSelectors() {
+      // Nettoyer les selects
+      fixedProjectSelect.innerHTML = '';
+      fixedEmployeeSelect.innerHTML = '';
+
+      // Remplir les projets
       projects.forEach(p => {
         const opt = document.createElement("option");
         opt.value = p.id;
@@ -928,7 +822,8 @@
         fixedProjectSelect.appendChild(opt);
       });
 
-      employees.sort((a, b) => a.nom.localeCompare(b.nom)).forEach(e => {
+      // Remplir les employés
+      employees.forEach(e => {
         const opt = document.createElement("option");
         opt.value = e.id;
         opt.textContent = `${e.nom} (${e.metier} - ${e.id})`;
@@ -942,8 +837,9 @@
       renderAssignments(result);
     });
 
-    // Bouton "Rebrasser" = relancer la planif (avec nouvel ordre aléatoire)
+    // Bouton "Rebrasser" (maintenant réparé/vérifié)
     shuffleBtn.addEventListener("click", () => {
+      // Cette fonction relance la planif, qui elle-même appelle shuffleArray(employees)
       const result = planAllProjectsGlobally();
       renderAssignments(result);
     });
@@ -969,7 +865,8 @@
       renderFixedList();
     });
 
-    // Init
+    // Initialisation au chargement
+    document.getElementById("databaseSummary").textContent = `Base de données : ${employees.length} employés / ${projects.length} projets.`;
     renderProjectsList();
     initFixedSelectors();
     renderFixedList();
