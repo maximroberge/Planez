@@ -109,289 +109,236 @@
     .project-management-actions button, .need-actions button { margin: 0 0 0 4px; padding: 4px 8px; font-size: 0.75rem; }
     
     /* Styles de Résultat (Result Display Styles - Detailed) */
-    .result-header { /* Style from 'bon affichage' */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+    .project-block { border-top: 1px solid #1f2937; padding-top: 10px; margin-top: 10px; }
+    .project-block-title h3 { font-size: 0.95rem; }
+    .project-block-title span { font-size: 0.75rem; color: #9ca3af; }
+    
+    .need-section {
+        background: #111827;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 8px;
+        border-left: 3px solid #6366f1;
     }
-    .project-block {
-      border-top: 1px solid #1f2937;
-      padding-top: 10px; /* Changed from 12px to match 'bon affichage' */
-      margin-top: 10px; /* Changed from 12px to match 'bon affichage' */
+    .need-section-title {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+        color: #e5e7eb;
     }
-    .project-block:first-of-type {
-      border-top: none;
-      padding-top: 0;
-      margin-top: 0;
-    }
-    .project-block-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px; /* Changed from 8px to match 'bon affichage' */
-    }
-    .project-block-title h3 { font-size: 1.1rem; color: #38bdf8; }
-    .project-block-title small { font-size: 0.8rem; color: #9ca3af; }
-
-    /* Keep V6.0 specific Need/Assignment styles as the HTML structure is V6.0 */
-    .need-section { border: 1px solid #1e293b; border-radius: 10px; padding: 10px; margin-bottom: 12px; }
-    .need-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed #1e293b;
-    }
-    .need-title strong { color: #facc15; font-size: 0.95rem; }
-    .need-title small { font-size: 0.75rem; color: #9ca3af; }
-    .need-title small.red { color: #f87171; font-weight: 500; }
-    .need-assignments { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-
-    .assignment-card {
-      background: #111827;
-      border: 1px solid #374151;
-      border-radius: 8px;
-      padding: 10px;
-      flex: 1 1 calc(50% - 10px); /* 2 par ligne avec gap */
-      max-width: calc(50% - 10px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-    .fixed-assignment { border-color: #facc15; background: #1f2937; }
-    .assignment-card div:first-child { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-    .assignment-card span { color: #e5e7eb; font-weight: 500; }
-    .assignment-card small { color: #9ca3af; font-size: 0.75rem; }
-    .assignment-details { margin-top: 6px; border-top: 1px solid #1f2937; padding-top: 6px; font-size: 0.75rem; color: #9ca3af; }
-    .assignment-details p { margin: 2px 0; }
-
-    /* Summary Styles */
-    #summaryText {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      color: #9ca3af;
-      margin-bottom: 20px;
-    }
-    #summaryText strong { color: #e5e7eb; }
-    .summary-stats { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 15px; }
-    .summary-stat-item { font-size: 0.85rem; }
-    .summary-stat-item span { color: #38bdf8; font-weight: 600; }
-
-    /* Fixed Assignment List Styles */
-    .fixed-list-container {
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid #1f2937;
-    }
-    .fixed-list {
-      max-height: 180px;
-    }
-    .fixed-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px dashed #1f2937;}
-    .fixed-item:last-child { border-bottom: none; }
-    .fixed-item-details { flex-grow: 1; }
-    .fixed-item-details strong { font-size: 0.9rem; display: block; }
-    .fixed-item-details small { color: #9ca3af; font-size: 0.75rem; }
-    .fixed-item-status { font-size: 0.8rem; margin-left: 10px; }
-    .fixed-item-success { color: #4ade80; }
-    .fixed-item-warning { color: #facc15; }
-    .fixed-item-error { color: #f87171; }
-    .delete-fixed-btn { background: #ef4444; color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; padding: 0; line-height: 1; margin-left: 10px; cursor: pointer; transition: background 0.2s; }
-    .delete-fixed-btn:hover { background: #dc2626; }
-
-    /* Data Management Styles */
+    
+    /* Autres styles inchangés */
     .data-status { margin-top: 8px; padding: 8px; border-radius: 6px; font-size: 0.8rem; }
     .data-status.success { background: #166534; color: #dcfce7; }
     .data-status.error { background: #991b1b; color: #fee2e2; }
-    .data-controls { margin-top: 10px; }
-    .data-controls button { margin-top: 0; }
     .data-area textarea { height: 200px; font-family: monospace; font-size: 0.75rem; }
 
+    @media (max-width: 1400px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .grid > section:last-child { grid-column: 1 / span 2; }
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .grid > section:last-child { grid-column: 1 / span 1; }
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <header>
-      <h1>Planif IA – Gestion des Projets et Affectation (v6.0)</h1>
-      <p>Outil d'aide à la décision pour l'affectation des ressources spécialisées aux besoins des projets.</p>
-      <p class="tagline">Structure: Projet > Besoins (Need) > Affectations | Moteur d'affectation basé sur le score (compétences, distance, disponibilité).</p>
+      <h1>Planificateur IA – Affectation globale (v6.0)</h1>
+      <p>
+        **Nouveau: Gestion avancée des projets** avec plusieurs corps de métier, dates et slots différents par besoin.
+      </p>
+      <div class="tagline">
+        Priorité : **Disponibilité** > Compétences > Évaluation > Distance.
+      </div>
     </header>
 
     <div class="grid">
-      <div class="card data-management-card">
-        <h2>Gestion des Données <small>Employés & Projets</small></h2>
-        <div class="data-controls">
-          <button id="loadDataBtn">Charger les données du JSON</button>
-          <button id="saveDataBtn" class="btn-secondary">Sauvegarder en local</button>
-          <button id="resetDataBtn" class="btn-secondary">Réinitialiser</button>
+      <section class="card">
+        <h2>1. Planification & Directives</h2>
+        <small id="databaseSummary">Base de données : N/A</small>
+        
+        <div style="margin-top:10px; margin-bottom:4px;">
+          <button id="planAllBtn">Générer une nouvelle planification (IA)</button>
         </div>
-        <div id="dataStatus" class="data-status">Bienvenue! Chargez ou réinitialisez vos données.</div>
-        <div class="data-area" style="margin-top: 10px;">
-          <label for="employeesJSONArea">Données Employés (JSON)</label>
-          <textarea id="employeesJSONArea" placeholder="Collez votre JSON d'employés ici..."></textarea>
-          <label for="projectsJSONArea">Données Projets (JSON)</label>
-          <textarea id="projectsJSONArea" placeholder="Collez votre JSON de projets ici..."></textarea>
-        </div>
-      </div>
+        <small style="display:block;margin-top:2px;color:#6b7280;font-size:0.75rem;">
+          L'IA utilisera les données chargées.
+        </small>
 
-      <div class="card project-management-card">
-        <h2>Gestion des Projets <small>Ajout, Modification & Suppression</small></h2>
-        <div class="project-management-form">
-          <h3 style="margin-top: 10px; font-size: 0.95rem;">Formulaire Projet <small style="margin-left:10px;" id="currentProjectEditStatus">Nouveau Projet</small></h3>
-          <label for="projectIdInput">ID Projet (P-XXX)</label>
-          <input type="text" id="projectIdInput" placeholder="Ex: P-999" required />
-          <label for="projectNomInput">Nom du Projet</label>
-          <input type="text" id="projectNomInput" placeholder="Ex: Arrêt usine X" required />
-          <div style="display:flex; justify-content: flex-end; margin-top: 5px;">
-            <button id="saveProjectHeader">Sauvegarder le Projet</button>
-            <button id="cancelEditBtn" class="btn-secondary" style="display:none;">Annuler l'édition</button>
-          </div>
-          <div id="projectStatus" class="data-status"></div>
-        </div>
+        <div style="margin-top:16px; border-top:1px solid #1f2937; padding-top:12px;">
+          <h3 style="font-size:0.95rem;margin-bottom:4px;">Directive fixe (Manuelle)</h3>
 
-        <div style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px;">
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Liste des Projets</h3>
-          <div id="projectsList" class="projects-list">
-            <p style="color: #9ca3af; font-style: italic;">Aucun projet chargé.</p>
+          <label style="margin-top:8px;">Projet</label>
+          <select id="fixedProjectSelect"></select>
+
+          <label>Employé</label>
+          <select id="fixedEmployeeSelect"></select>
+
+          <button id="addFixedBtn">Ajouter la directive</button>
+          <button id="clearFixedBtn" class="btn-secondary">Effacer toutes les directives</button>
+
+          <div class="fixed-list" id="fixedList">
+            Aucune directive pour l’instant.
           </div>
         </div>
         
-        <div id="needs-management-section" style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px; display: none;">
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Gestion des Besoins du Projet <span id="currentProjectNameForNeeds" style="color: #38bdf8;"></span></h3>
-          <div class="need-form">
-            <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Formulaire Besoin <small style="margin-left:10px;" id="currentNeedEditStatus">Nouveau Besoin</small></h4>
-            <input type="hidden" id="currentProjectIdForNeed" />
-            <input type="hidden" id="currentNeedId" />
-            <label for="needMetierSelect">Métier Requis</label>
-            <select id="needMetierSelect" required>
-              <option value="">Sélectionner un métier...</option>
-              <option value="mecanicien">Mécanicien</option>
-              <option value="soudeur">Soudeur</option>
-              <option value="tuyauteur">Tuyauteur</option>
-              <option value="manoeuvre">Manœuvre</option>
-            </select>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 0.5fr; gap: 10px;">
-              <div>
-                <label for="needDebutInput">Date de Début</label>
-                <input type="date" id="needDebutInput" required />
-              </div>
-              <div>
-                <label for="needFinInput">Date de Fin</label>
-                <input type="date" id="needFinInput" required />
-              </div>
-              <div>
-                <label for="needSlotsInput">Slots (Qté)</label>
-                <input type="number" id="needSlotsInput" min="1" value="1" required />
-              </div>
-            </div>
-            <label for="needCompetencesInput">Compétences Requises (séparées par une virgule)</label>
-            <input type="text" id="needCompetencesInput" placeholder="Ex: MIG, Espaces clos" />
+        <div style="margin-top:24px; border-top:1px solid #1f2937; padding-top:12px;">
+            <h3 style="font-size:0.95rem;">Projets chargés (Aperçu)</h3>
+        </div>
+        <div class="projects-list" id="projectsList"></div>
+      </section>
+
+      <section class="card data-management">
+        <h2>2. Gestion de la Base de Données</h2>
+        
+        <div class="data-controls">
+            <button id="loadDataBtn">Mettre à jour la base de données</button>
+            <button id="saveDataBtn" class="btn-secondary">Sauvegarder (Localement)</button>
+            <button id="resetDataBtn" class="btn-secondary">Réinitialiser (Données par défaut)</button>
+        </div>
+        <div id="dataStatus" class="data-status">Prêt.</div>
+        
+        <h3 style="font-size:1.15rem; margin-top:20px; color: #38bdf8;">2.5 Gestion Manuelle</h3>
+
+        <div style="margin-top:16px; border-top:1px solid #1f2937; padding-top:12px;">
+            <h3 style="font-size:1rem; margin-bottom:10px;">Projet (ID & Nom) <small style="color:#fde047; margin-left:10px;" id="currentProjectEditStatus">Nouveau Projet</small></h3>
+            
+            <label for="projectIdInput">ID Projet (P-XXX)</label>
+            <input type="text" id="projectIdInput" placeholder="Ex: P-999" required />
+
+            <label for="projectNomInput">Nom du Projet</label>
+            <input type="text" id="projectNomInput" placeholder="Ex: Arrêt usine X" required />
+            
             <div style="display:flex; justify-content: flex-end; margin-top: 5px;">
-              <button id="saveNeedBtn">Ajouter / Mettre à jour le besoin</button>
-              <button id="cancelNeedEditBtn" class="btn-secondary" style="display:none;">Annuler l'édition</button>
+                <button id="saveProjectHeaderBtn">Créer / Mettre à jour le projet</button>
+                <button id="cancelEditBtn" class="btn-secondary" style="display:none;">Annuler l'édition</button>
             </div>
-          </div>
-          <div id="needStatus" class="data-status"></div>
-
-          <div style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px;">
-            <h4 style="font-size: 1rem; margin-bottom: 8px;">Besoins Actuels</h4>
-            <div id="projectNeedsList">
-              <p style="color: #9ca3af; font-style: italic;">Aucun besoin pour ce projet.</p>
-            </div>
-          </div>
         </div>
-
-      </div>
-
-      <div class="card planning-results-card">
-        <h2>Planification & Affectations <small>Générer les résultats</small></h2>
-        <p style="font-size: 0.85rem; color: #9ca3af; margin-bottom: 15px;">Le moteur d'affectation trouve le meilleur employé pour chaque "slot" de besoin en fonction du score (compétences, distance, disponibilité, charge de travail).</p>
-
-        <button id="planAllBtn">Générer une nouvelle planification (IA)</button>
-        <button id="clearResultsBtn" class="btn-secondary">Effacer les résultats</button>
-        <div style="margin-top: 15px;">
-          <label for="fixedProjectSelect" style="display: inline-block;">Directive d'affectation Fixe (Optionnel)</label>
-          <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-            <select id="fixedProjectSelect" style="flex: 1;">
-              <option value="">Sélectionner un Projet...</option>
+        
+        <div id="needsManagementSection" style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px; display:none;">
+            <h3 style="font-size:1rem; margin-bottom:10px;">Besoins Spécifiques (Métier, Durée, Slots)</h3>
+            <small id="currentProjectNeedsName" style="display:block; margin-bottom: 8px; color: #4ade80;"></small>
+            
+            <input type="hidden" id="currentNeedId" value="0" />
+            
+            <label for="needMetierSelect">Métier Requis</label>
+            <select id="needMetierSelect">
+                <option value="mecanicien">mecanicien</option>
+                <option value="soudeur">soudeur</option>
+                <option value="tuyauteur">tuyauteur</option>
+                <option value="manoeuvre">manoeuvre</option>
             </select>
-            <select id="fixedEmployeeSelect" style="flex: 1;">
-              <option value="">Sélectionner un Employé...</option>
-            </select>
-            <button id="addFixedBtn" style="flex-shrink: 0; margin-top: 0;">Ajouter Directive</button>
-          </div>
-          <div class="fixed-list-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-              <h4 style="font-size: 0.9rem; color: #9ca3af;">Directives Fixes:</h4>
-              <button id="clearFixedBtn" class="btn-secondary" style="margin-top: 0; padding: 4px 8px; font-size: 0.75rem;">Effacer tout</button>
-            </div>
-            <div id="fixedAssignmentsList" class="fixed-list">
-              <p style="color: #6b7280; font-size: 0.75rem; font-style: italic; padding-right: 5px;">Aucune directive fixe en attente.</p>
-            </div>
-          </div>
-        </div>
 
-        <div style="margin-top: 25px; border-top: 1px solid #1f2937; padding-top: 20px;">
-          <div id="assignmentsContainer">
-            <div class="result-header">
-              <h3 style="font-size: 1.2rem; color: #38bdf8;">Résultats de Planification</h3>
-              <p id="summaryText" style="margin: 0; padding: 0; border: none; background: transparent;"></p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <div>
+                    <label for="needDebutInput">Date de Début</label>
+                    <input type="date" id="needDebutInput" required />
+                </div>
+                <div>
+                    <label for="needFinInput">Date de Fin</label>
+                    <input type="date" id="needFinInput" required />
+                </div>
             </div>
-            <p style="color: #9ca3af; font-style: italic;">Cliquez sur 'Générer une nouvelle planification (IA)' pour afficher les affectations.</p>
+            
+            <label for="needSlotsInput">Nombre de Postes (Slots)</label>
+            <input type="number" id="needSlotsInput" min="1" max="10" value="1" required />
+
+            <label for="needCompetencesInput">Compétences Requises (séparées par une virgule)</label>
+            <input type="text" id="needCompetencesInput" placeholder="Ex: MIG, Lecture plan" required />
+
+            <div style="display:flex; justify-content: flex-end; margin-top: 5px;">
+                <button id="saveNeedBtn">Ajouter ce besoin</button>
+                <button id="cancelNeedEditBtn" class="btn-secondary" style="display:none;">Annuler l'édition</button>
+            </div>
+            
+            <div style="margin-top:15px; border-top:1px dashed #1f2937; padding-top:10px;">
+                <h4 style="font-size:0.9rem; margin-bottom:5px; color:#94a3b8;">Besoins Actuels du Projet (<span id="totalNeedsSlots">0</span> slots totaux)</h4>
+                <div id="projectNeedsList"></div>
+            </div>
+        </div>
+        
+        <div style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px;">
+            <h3 style="font-size:1rem;">Projets Actuellement dans la Base</h3>
+            <div class="project-management-list" id="projectManagementList"></div>
+        </div>
+        
+        <div class="data-area" style="margin-top:20px; border-top:1px solid #1f2937; padding-top:12px;">
+            <label for="employeesJSON">Employés (JSON Array - Volume élevé : 150 employés) <small style="color:#fde047;">Modifier ici la 'disponibilite' ou l'évaluation.</small></label>
+            <textarea id="employeesJSON"></textarea>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="result-header">
+          <div>
+            <h2>3. Résultat de la planification</h2>
+            <small id="summaryText">Cliquez sur “Générer une nouvelle planification (IA)” pour commencer.</small>
           </div>
         </div>
-      </div>
+        <div id="assignmentsContainer"></div>
+      </section>
     </div>
   </div>
 
   <script>
-    // ===========================================
-    // DÉFINITION DES DONNÉES ET CONSTANTES
-    // ===========================================
-    const allSkills = {
-      mecanicien: ["Alignement laser", "Mécanique lourde", "Lecture plan", "Équilibrage", "Vibration", "Graissage", "Pompes centrifuges"],
-      soudeur: ["MIG", "TIG", "Électrode", "Tôlerie", "ASME", "Espaces clos", "Travail en hauteur", "Lecture plan"],
-      tuyauteur: ["B31.3", "B31.1", "Lecture plan", "Soudure orbitale", "Filetage", "Soudure à l'arc"],
-      manoeuvre: ["Nettoyage haute pression", "Échafaudage", "Travail en hauteur", "Cadenassage", "Permis de travail", "Espaces clos"]
-    };
-    const noms = ["Tremblay", "Gagnon", "Roy", "Lefebvre", "Fortin", "Boucher", "Gauthier", "Dion", "Proulx", "Richard", "Girard", "Lapointe"];
-    const prenoms = ["Alexandre", "Sophie", "Marc", "Isabelle", "David", "Marie", "Nicolas", "Julie", "Pierre", "Catherine", "Simon", "Chloé"];
-    const villes = ["Trois-Rivières", "Bécancour", "Québec", "Montréal", "Lévis", "Sherbrooke", "Drummondville", "Shawinigan", "Rimouski"];
-    const disponibilites = ["Disponible", "Congé", "Formation", "Absent"];
+    
+    // ==========================================================
+    // GÉNÉRATION DE DONNÉES PAR DÉFAUT
+    // ==========================================================
 
+    const allSkills = {
+        mecanicien: ["Alignement", "Hydraulique", "Maintenance préventive", "Maintenance corrective", "Réducteur", "Pneumatique", "Usinage", "Montage de convoyeur", "Analyse vibration"],
+        soudeur: ["MIG", "TIG", "ARC", "TIG inox", "Soudure inox", "Lecture plan", "Pont roulant", "Espaces clos", "ASP"],
+        tuyauteur: ["Filetage", "Raccordement de vannes", "Lecture isométriques", "ASME B31.3", "Assemblage tuyauterie haute pression", "Soudure orbitale", "Test d'étanchéité"],
+        manoeuvre: ["Manutention", "Nettoyage industriel", "Élingage de base", "Travail en hauteur", "Espaces clos", "Permis cariste", "Sécurité SIMDUT"]
+    };
+
+    const names = ["Alexandre", "Marie", "Charles", "Sophie", "David", "Julie", "Gabriel", "Audrey", "Louis", "Nadia", "Thomas", "Isabelle", "Nicolas", "Rachel", "Philippe", "Cynthia"];
+    const surnames = ["Tremblay", "Gagnon", "Côté", "Bouchard", "Gauthier", "Dion", "Proulx", "Richard", "Girard", "Lapointe"];
+    
     function getRandomElement(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
     function getRandomSkills(metier, min, max) {
-      const availableSkills = allSkills[metier];
-      const count = Math.floor(Math.random() * (max - min + 1)) + min;
-      const shuffled = availableSkills.sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, count);
+        const availableSkills = allSkills[metier];
+        const count = Math.floor(Math.random() * (max - min + 1)) + min;
+        const shuffled = availableSkills.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
     }
+    
+    function generateEmployees(metier, count, prefix) {
+        const employees = [];
+        const uniqueNames = new Set();
+        const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
 
-    function generateEmployees(metier, count, idPrefix) {
-      let employees = [];
-      for (let i = 1; i <= count; i++) {
-        const id = `${idPrefix}-${String(i).padStart(3, '0')}`;
-        const nom = getRandomElement(prenoms) + " " + getRandomElement(noms);
-        const distanceKm = Math.floor(Math.random() * 150) + 1; // 1-150 km
-        const evaluation = (Math.random() * 2 + 3).toFixed(1); // 3.0 - 5.0
-        const competenceRange = { min: 2, max: 5 };
-        employees.push({
-          id,
-          nom,
-          metier,
-          competences: getRandomSkills(metier, competenceRange.min, competenceRange.max),
-          disponibilite: getRandomElement(disponibilites),
-          distanceKm,
-          evaluation
-        });
-      }
-      return employees;
+        for (let i = 1; i <= count; i++) {
+            let nom;
+            do {
+                nom = `${getRandomElement(names)} ${getRandomElement(surnames)}`;
+            } while (uniqueNames.has(nom));
+            uniqueNames.add(nom);
+
+            const id = `${prefix}-${String(i).padStart(3, '0')}`;
+            const evaluation = parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1)); 
+            const distanceKm = Math.floor(Math.random() * 45) + 5; 
+            const competenceRange = metier === 'manoeuvre' ? { min: 2, max: 4 } : { min: 3, max: 5 };
+
+            employees.push({
+                id,
+                nom,
+                metier,
+                competences: getRandomSkills(metier, competenceRange.min, competenceRange.max),
+                disponibilite: getRandomElement(disponibilites), 
+                distanceKm,
+                evaluation
+            });
+        }
+        return employees;
     }
 
     const initialEmployees = [
@@ -402,26 +349,38 @@
     ];
     initialEmployees.sort((a, b) => a.nom.localeCompare(b.nom));
 
+    // NOUVELLE STRUCTURE DE PROJET: Liste de Besoins (Needs)
     const initialProjects = [
-      { id:"P-101", nom:"Arrêt chaudière – Bécancour", needs: [
-        { needId: "N1", metier: "soudeur", competencesRequises: ["MIG", "Espaces clos"], debut: "2026-04-10", fin: "2026-04-20", slots: 3 },
-        { needId: "N2", metier: "mecanicien", competencesRequises: ["Alignement laser"], debut: "2026-04-15", fin: "2026-04-25", slots: 2 }
+      { id:"P-101", nom:"Arrêt chaudière – Bécancour", needs:[
+        { needId:1, metier:"soudeur", competencesRequises:["MIG","Espaces clos","ASP"], debut:"2026-01-10", fin:"2026-01-18", slots:4 },
+        { needId:2, metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Sécurité SIMDUT"], debut:"2026-01-15", fin:"2026-01-19", slots:2 }
       ]},
-      { id:"P-102", nom:"Maintenance préventive – Québec", needs: [
-        { needId: "N1", metier: "mecanicien", competencesRequises: ["Vibration", "Pompes centrifuges"], debut: "2026-05-01", fin: "2026-05-15", slots: 4 },
-        { needId: "N2", metier: "manoeuvre", competencesRequises: ["Nettoyage haute pression"], debut: "2026-05-10", fin: "2026-05-20", slots: 2 }
+      { id:"P-102", nom:"Remplacement convoyeur – Trois-Rivières", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Maintenance préventive","Alignement","Hydraulique"], debut:"2026-01-12", fin:"2026-01-25", slots:5 },
+        { needId:2, metier:"soudeur", competencesRequises:["ARC"], debut:"2026-01-18", fin:"2026-01-20", slots:1 }
       ]},
-      { id:"P-103", nom:"Projet ASME – Boucherville", needs: [
-        { needId: "N1", metier: "tuyauteur", competencesRequises: ["ASME B31.3", "Soudure orbitale"], debut: "2026-04-18", fin: "2026-04-28", slots: 2 }
+      { id:"P-103", nom:"Ligne vapeur HP – Shawinigan", needs:[
+        { needId:1, metier:"tuyauteur", competencesRequises:["Lecture isométriques","ASME B31.3"], debut:"2026-01-20", fin:"2026-02-02", slots:3 },
+        { needId:2, metier:"manoeuvre", competencesRequises:["Manutention"], debut:"2026-01-25", fin:"2026-01-30", slots:1 }
       ]},
-      { id:"P-104", nom:"Espaces Clos – Rimouski", needs: [
-        { needId: "N1", metier: "manoeuvre", competencesRequises: ["Espaces clos", "Travail en hauteur"], debut: "2026-04-20", fin: "2026-04-25", slots: 4 }
+      { id:"P-104", nom:"Nettoyage silo – Bécancour", needs:[
+        { needId:1, metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Espaces clos"], debut:"2026-01-15", fin:"2026-01-19", slots:4 }
       ]},
-      { id:"P-105", nom:"Réparation Structure – Trois-Rivières", needs: [
-        { needId: "N1", metier: "soudeur", competencesRequises: ["MIG", "Lecture plan"], debut: "2026-04-25", fin: "2026-05-05", slots: 1 }
-      ]}
+      { id:"P-105", nom:"Projet inox – Québec", needs:[
+        { needId:1, metier:"soudeur", competencesRequises:["TIG inox","Soudure inox","Lecture plan"], debut:"2026-02-01", fin:"2026-02-15", slots:5 }
+      ]},
+      { id:"P-106", nom:"Maintenance usine – Laval", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Maintenance corrective","Pneumatique","Réducteur"], debut:"2026-01-28", fin:"2026-02-10", slots:3 }
+      ]},
+      { id:"P-107", nom:"Installation pompe – Sherbrooke", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Hydraulique","Analyse vibration"], debut:"2026-02-05", fin:"2026-02-12", slots:2 }
+      ]},
+      { id:"P-108", nom:"Rénovation tuyauterie – Lévis", needs:[
+        { needId:1, metier:"tuyauteur", competencesRequises:["Filetage","Raccordement de vannes","Test d'étanchéité"], debut:"2026-02-10", fin:"2026-02-28", slots:5 }
+      ]},
     ];
-
+    
+    // Variables globales
     let employees = [];
     let projects = [];
     let fixedAssignments = [];
@@ -438,458 +397,674 @@
     const loadDataBtn = document.getElementById("loadDataBtn");
     const saveDataBtn = document.getElementById("saveDataBtn");
     const resetDataBtn = document.getElementById("resetDataBtn");
-    const employeesJSONArea = document.getElementById("employeesJSONArea");
-    const projectsJSONArea = document.getElementById("projectsJSONArea");
     const dataStatus = document.getElementById("dataStatus");
-    const projectIdInput = document.getElementById("projectIdInput");
-    const projectNomInput = document.getElementById("projectNomInput");
-    const saveProjectHeader = document.getElementById("saveProjectHeader");
-    const cancelEditBtn = document.getElementById("cancelEditBtn");
-    const currentProjectEditStatus = document.getElementById("currentProjectEditStatus");
+    const databaseSummary = document.getElementById("databaseSummary");
+    const employeesJSONArea = document.getElementById("employeesJSON");
     const fixedProjectSelect = document.getElementById("fixedProjectSelect");
     const fixedEmployeeSelect = document.getElementById("fixedEmployeeSelect");
-    const fixedAssignmentsList = document.getElementById("fixedAssignmentsList");
-    const needsManagementSection = document.getElementById("needs-management-section");
-    const currentProjectNameForNeeds = document.getElementById("currentProjectNameForNeeds");
-    const projectNeedsList = document.getElementById("projectNeedsList");
-    const needStatus = document.getElementById("needStatus");
-    const currentNeedEditStatus = document.getElementById("currentNeedEditStatus");
-    const currentProjectIdForNeed = document.getElementById("currentProjectIdForNeed");
-    const currentNeedId = document.getElementById("currentNeedId");
-    const needMetierSelect = document.getElementById("needMetierSelect");
-    const needDebutInput = document.getElementById("needDebutInput");
-    const needFinInput = document.getElementById("needFinInput");
-    const needSlotsInput = document.getElementById("needSlotsInput");
-    const needCompetencesInput = document.getElementById("needCompetencesInput");
-    const saveNeedBtn = document.getElementById("saveNeedBtn");
-    const cancelNeedEditBtn = document.getElementById("cancelNeedEditBtn");
-    const clearResultsBtn = document.getElementById("clearResultsBtn");
-    
+    const fixedList = document.getElementById("fixedList");
+
+    // Sélecteurs de formulaire Projet Général
+    const projectIdInput = document.getElementById('projectIdInput');
+    const projectNomInput = document.getElementById('projectNomInput');
+    const saveProjectHeaderBtn = document.getElementById('saveProjectHeaderBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const projectManagementList = document.getElementById('projectManagementList');
+    const currentProjectEditStatus = document.getElementById('currentProjectEditStatus');
+    const needsManagementSection = document.getElementById('needsManagementSection');
+
+    // Sélecteurs de formulaire Besoin (Need)
+    const currentNeedId = document.getElementById('currentNeedId');
+    const needMetierSelect = document.getElementById('needMetierSelect');
+    const needDebutInput = document.getElementById('needDebutInput');
+    const needFinInput = document.getElementById('needFinInput');
+    const needSlotsInput = document.getElementById('needSlotsInput');
+    const needCompetencesInput = document.getElementById('needCompetencesInput');
+    const saveNeedBtn = document.getElementById('saveNeedBtn');
+    const cancelNeedEditBtn = document.getElementById('cancelNeedEditBtn');
+    const projectNeedsList = document.getElementById('projectNeedsList');
+    const currentProjectNeedsName = document.getElementById('currentProjectNeedsName');
+    const totalNeedsSlots = document.getElementById('totalNeedsSlots');
+
 
     // ===========================================
-    // FONCTIONS UTILITAIRES
+    // LOGIQUE DE GESTION DES DONNÉES ET INITIALISATION
     // ===========================================
+
     function setStatus(message, isError = false) {
-      dataStatus.textContent = message;
-      dataStatus.className = `data-status ${isError ? 'error' : 'success'}`;
+        dataStatus.textContent = message;
+        dataStatus.className = "data-status " + (isError ? "error" : "success");
+    }
+    
+    // Helper pour obtenir la plus grande ID de besoin pour un projet
+    function getNextNeedId(proj) {
+        if (!proj.needs || proj.needs.length === 0) return 1;
+        return Math.max(...proj.needs.map(n => n.needId)) + 1;
     }
 
-    function parseDate(dateStr) {
-      // Assure que le fuseau horaire n'affecte pas la date
-      const [year, month, day] = dateStr.split('-').map(Number);
-      return new Date(year, month - 1, day);
-    }
-
-    function datesOverlap(start1, end1, start2, end2) {
-      return parseDate(start1) <= parseDate(end2) && parseDate(start2) <= parseDate(end1);
-    }
-
-    function getNeedByRef(projectId, needId) {
-        const project = projects.find(p => p.id === projectId);
-        if (!project) return null;
-        return project.needs.find(n => n.needId === needId);
-    }
-
-    // ===========================================
-    // GESTION DES DONNÉES (Load/Save/Display)
-    // ===========================================
-    function displayCurrentData(empData, projData) {
-      employeesJSONArea.value = JSON.stringify(empData, null, 2);
-      projectsJSONArea.value = JSON.stringify(projData, null, 2);
-      employees = empData;
-      projects = projData;
-    }
-
-    function initializeData() {
-      const storedEmployees = localStorage.getItem('planif_employees');
-      const storedProjects = localStorage.getItem('planif_projects');
-
-      if (storedEmployees && storedProjects) {
+    function loadEmployeesFromUI() {
         try {
-          displayCurrentData(JSON.parse(storedEmployees), JSON.parse(storedProjects));
-          loadDataFromUI(false);
+            const loadedEmployees = JSON.parse(employeesJSONArea.value);
+            if (!Array.isArray(loadedEmployees) || loadedEmployees.length === 0) {
+                throw new Error("La liste des employés est vide ou n'est pas un tableau valide.");
+            }
+            employees = loadedEmployees.sort((a, b) => a.nom.localeCompare(b.nom));
+            return true;
         } catch (e) {
-          // En cas d'erreur de parsing du local storage, charger les données par défaut
-          displayCurrentData(initialEmployees, initialProjects);
-          loadDataFromUI(false);
-          setStatus("Sauvegarde locale corrompue. Chargement des données par défaut.");
+            setStatus("Erreur JSON des employés : " + e.message, true);
+            return false;
         }
-      } else {
-        // Pas de sauvegarde locale, charger les données par défaut
-        displayCurrentData(initialEmployees, initialProjects);
-        loadDataFromUI(false);
-      }
-      resetProjectForm(); // Initialiser le formulaire à un état "Nouveau Projet"
-    }
-
-    function saveDataToLocalStorage() {
-      // Sauvegarder les employés et projets depuis le JSON Area
-      localStorage.setItem('planif_employees', employeesJSONArea.value);
-      localStorage.setItem('planif_projects', projectsJSONArea.value);
-      setStatus("Données sauvegardées localement avec succès.", false);
-    }
-
-    function resetDataToDefault() {
-      displayCurrentData(initialEmployees, initialProjects);
-      fixedAssignments = [];
-      loadDataFromUI(false);
-      setStatus("Données réinitialisées aux valeurs par défaut. Cliquez sur 'Sauvegarder en local' pour conserver.", false);
-      resetProjectForm();
-      assignmentsContainer.innerHTML = '<p style="color: #9ca3af; font-style: italic;">Cliquez sur \'Générer une nouvelle planification (IA)\' pour afficher les affectations.</p>';
-      summaryText.textContent = "Affectations: 0";
     }
 
     function loadDataFromUI(showStatus = true) {
-      try {
-        employees = JSON.parse(employeesJSONArea.value);
-        projects = JSON.parse(projectsJSONArea.value);
+        if (!loadEmployeesFromUI()) return false;
+        
         renderProjectsList();
-        renderFixedEmployeeSelect();
-        renderFixedProjectSelect();
-        renderFixedList();
+        renderProjectManagementList();
+        initFixedSelectors();
+        
+        const totalSlots = projects.reduce((sum, p) => sum + p.needs.reduce((nSum, n) => nSum + n.slots, 0), 0);
+        
+        databaseSummary.textContent = `Base de données : ${employees.length} employés / ${projects.length} projets (${totalSlots} slots totaux).`;
         if (showStatus) {
-          setStatus(`Données chargées : ${employees.length} employés et ${projects.length} projets.`, false);
+            setStatus("Données chargées avec succès. Prêt pour la planification.");
         }
-      } catch (e) {
-        setStatus("Erreur lors du chargement ou du parsing du JSON. Vérifiez la syntaxe.", true);
-        console.error("JSON Error:", e);
-      }
+        return true;
     }
 
-    // ===========================================
-    // GESTION DES FORMULAIRES DE PROJET ET BESOIN
-    // ===========================================
-
-    function resetProjectForm() {
-      projectIdInput.value = '';
-      projectNomInput.value = '';
-      currentProjectEditStatus.textContent = 'Nouveau Projet';
-      cancelEditBtn.style.display = 'none';
-      needsManagementSection.style.display = 'none';
-      projectBeingEdited = null;
-      document.getElementById("projectStatus").textContent = '';
-      resetNeedForm();
+    function displayCurrentData(empData, projData) {
+        employeesJSONArea.value = JSON.stringify(empData, null, 2);
+        projects = projData; 
     }
 
-    function editProject(projectId) {
-      projectBeingEdited = projects.find(p => p.id === projectId);
-      if (!projectBeingEdited) {
-        setStatus(`Erreur: Projet ${projectId} introuvable.`, true);
-        return;
-      }
-      projectIdInput.value = projectBeingEdited.id;
-      projectNomInput.value = projectBeingEdited.nom;
-      currentProjectEditStatus.textContent = 'Édition';
-      cancelEditBtn.style.display = 'inline-block';
-      needsManagementSection.style.display = 'block';
-      currentProjectNameForNeeds.textContent = projectBeingEdited.nom;
-      renderProjectNeedsList(projectBeingEdited);
-      resetNeedForm();
-    }
+    function initializeData() {
+        const storedEmployees = localStorage.getItem('planif_employees');
+        const storedProjects = localStorage.getItem('planif_projects');
 
-    function saveProjectHeader(e) {
-      e.preventDefault();
-      const id = projectIdInput.value.trim();
-      const nom = projectNomInput.value.trim();
-
-      if (!id || !nom) {
-        document.getElementById("projectStatus").textContent = "Veuillez remplir tous les champs.";
-        return;
-      }
-
-      const isEditing = projects.some(p => p.id === id);
-
-      if (isEditing) {
-        // Update
-        const index = projects.findIndex(p => p.id === id);
-        if (index !== -1) {
-          projects[index].nom = nom;
-          projectBeingEdited = projects[index]; // Update reference
-          setStatus(`Projet ${id} mis à jour. Passez à la gestion des besoins.`, false);
-          currentProjectNameForNeeds.textContent = nom;
-          renderProjectNeedsList(projectBeingEdited);
+        if (storedEmployees && storedProjects) {
+            try {
+                displayCurrentData(JSON.parse(storedEmployees), JSON.parse(storedProjects));
+                loadDataFromUI(false);
+            } catch (e) {
+                displayCurrentData(initialEmployees, initialProjects);
+                loadDataFromUI(false);
+                setStatus("Sauvegarde locale corrompue. Chargement des données par défaut.");
+            }
         } else {
-          setStatus(`Erreur: Projet ${id} introuvable pour la mise à jour.`, true);
+            displayCurrentData(initialEmployees, initialProjects);
+            loadDataFromUI(false);
         }
-      } else {
-        // Create new project
-        if (projects.some(p => p.id === id)) {
-          setStatus(`Erreur: Un projet avec l'ID ${id} existe déjà.`, true);
-          return;
-        }
-        projectBeingEdited = { id, nom, needs: [] };
-        projects.push(projectBeingEdited);
-        setStatus(`Nouveau projet ${id} créé. Ajoutez les besoins ci-dessous.`, false);
-        editProject(id); // Switch to edit mode for needs
-      }
-
-      renderProjectsList();
-      renderFixedProjectSelect();
+        
+        resetProjectForm(); 
     }
 
-    function deleteProject(projectId) {
-      if (confirm(`Êtes-vous sûr de vouloir supprimer le projet ${projectId} et tous ses besoins?`)) {
-        projects = projects.filter(p => p.id !== projectId);
-        fixedAssignments = fixedAssignments.filter(d => d.projectId !== projectId); // Remove fixed assignments for this project
-        renderProjectsList();
-        renderFixedProjectSelect();
+    function saveDataToLocalStorage() {
+        localStorage.setItem('planif_employees', employeesJSONArea.value);
+        localStorage.setItem('planif_projects', JSON.stringify(projects, null, 2));
+        setStatus("Données sauvegardées dans le stockage local du navigateur.", false);
+    }
+    
+    function resetDataToDefault() {
+        localStorage.removeItem('planif_employees');
+        localStorage.removeItem('planif_projects');
+        fixedAssignments = [];
+        displayCurrentData(initialEmployees, initialProjects);
+        loadDataFromUI();
         renderFixedList();
-        resetProjectForm();
-        setStatus(`Projet ${projectId} supprimé.`, false);
-        // Also clear results if this project was assigned
-        assignmentsContainer.innerHTML = '<p style="color: #9ca3af; font-style: italic;">Cliquez sur \'Générer une nouvelle planification (IA)\' pour mettre à jour les affectations.</p>';
-        summaryText.textContent = "Affectations: 0";
-      }
+        setStatus("Données réinitialisées aux valeurs par défaut.", false);
     }
-
+    
+    // ===========================================
+    // LOGIQUE DE GESTION DES PROJETS (HEADER ET NEEDS)
+    // ===========================================
+    
     function resetNeedForm() {
-      currentNeedId.value = '';
-      needMetierSelect.value = '';
-      needDebutInput.value = '';
-      needFinInput.value = '';
-      needSlotsInput.value = '1';
-      needCompetencesInput.value = '';
-      currentNeedEditStatus.textContent = 'Nouveau Besoin';
-      cancelNeedEditBtn.style.display = 'none';
-      needBeingEditedId = null;
-      needStatus.textContent = '';
+        needBeingEditedId = null;
+        currentNeedId.value = 0;
+        needMetierSelect.value = 'mecanicien';
+        needDebutInput.value = new Date().toISOString().substring(0, 10);
+        needFinInput.value = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10);
+        needSlotsInput.value = 1;
+        needCompetencesInput.value = '';
+        saveNeedBtn.textContent = 'Ajouter ce besoin';
+        cancelNeedEditBtn.style.display = 'none';
+    }
+    
+    function resetProjectForm() {
+        projectBeingEdited = null;
+        let nextIdNumber = projects.length + 1;
+        while(projects.some(p => p.id === 'P-' + String(nextIdNumber).padStart(3, '0'))) {
+             nextIdNumber++;
+        }
+        projectIdInput.value = 'P-' + String(nextIdNumber).padStart(3, '0');
+        projectNomInput.value = '';
+        currentProjectEditStatus.textContent = 'Nouveau Projet';
+        saveProjectHeaderBtn.textContent = 'Créer le nouveau projet';
+        cancelEditBtn.style.display = 'none';
+        projectIdInput.disabled = false;
+        needsManagementSection.style.display = 'none';
+        resetNeedForm();
+    }
+    
+    function renderNeedsList(proj) {
+        projectNeedsList.innerHTML = '';
+        if (!proj.needs || proj.needs.length === 0) {
+            projectNeedsList.innerHTML = '<p style="color:#9ca3af; font-style:italic;">Aucun besoin défini pour ce projet.</p>';
+            totalNeedsSlots.textContent = 0;
+            return;
+        }
+        
+        let totalSlotsCount = 0;
+
+        proj.needs.forEach(n => {
+            totalSlotsCount += n.slots;
+            const div = document.createElement('div');
+            div.className = 'need-item';
+            div.innerHTML = `
+                <div class="need-item-details">
+                    <strong>${n.metier.toUpperCase()} (${n.slots} postes)</strong>
+                    <small>${n.debut} → ${n.fin} | Comp: ${n.competencesRequises.join(', ') || 'Aucune'}</small>
+                </div>
+                <div class="need-actions">
+                    <button class="edit-need-btn btn-secondary" data-id="${n.needId}">Éditer</button>
+                    <button class="delete-need-btn" data-id="${n.needId}">Supprimer</button>
+                </div>
+            `;
+            projectNeedsList.appendChild(div);
+        });
+        
+        totalNeedsSlots.textContent = totalSlotsCount;
+        
+        projectNeedsList.querySelectorAll('.edit-need-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => editNeed(parseInt(e.target.dataset.id)));
+        });
+        projectNeedsList.querySelectorAll('.delete-need-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => deleteNeed(parseInt(e.target.dataset.id)));
+        });
     }
 
-    function editNeed(projectId, needId) {
-        if (!projectBeingEdited || projectBeingEdited.id !== projectId) {
-            editProject(projectId); // Ensure the correct project is loaded for editing
+    function saveProjectHeader() {
+        const id = projectIdInput.value.trim();
+        const nom = projectNomInput.value.trim();
+        
+        if (!id || !nom) {
+            setStatus("Veuillez remplir l'ID et le Nom du projet.", true);
+            return;
         }
+
+        let existingProjectIndex = projects.findIndex(p => p.id === id);
+        
+        if (existingProjectIndex !== -1) {
+            // Update existing project header
+            projects[existingProjectIndex].nom = nom;
+            projectBeingEdited = projects[existingProjectIndex];
+            setStatus(`Projet ${id} mis à jour. Passez à la gestion des besoins.`, false);
+        } else {
+            // Create new project
+            if (projects.some(p => p.id === id)) {
+                 setStatus(`Erreur: Un projet avec l'ID ${id} existe déjà.`, true);
+                 return;
+            }
+            projectBeingEdited = { id, nom, needs: [] };
+            projects.push(projectBeingEdited);
+            setStatus(`Nouveau projet ${id} créé. Ajoutez les besoins ci-dessous.`, false);
+        }
+        
+        // Setup UI for needs management
+        projectIdInput.disabled = true; 
+        currentProjectEditStatus.textContent = `Édition de ${id}`;
+        saveProjectHeaderBtn.textContent = 'Mettre à jour le nom';
+        cancelEditBtn.style.display = 'inline-block';
+        needsManagementSection.style.display = 'block';
+        currentProjectNeedsName.textContent = `Projet : ${nom} (${id})`;
+        
+        renderNeedsList(projectBeingEdited);
+        resetNeedForm();
+        loadDataFromUI(false); 
+        document.getElementById('needsManagementSection').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editProject(projectId) {
+        projectBeingEdited = projects.find(p => p.id === projectId);
+        if (!projectBeingEdited) return;
+        
+        projectIdInput.value = projectBeingEdited.id;
+        projectNomInput.value = projectBeingEdited.nom;
+        
+        // Trigger the save header function to set up the UI for editing
+        saveProjectHeader(); 
+    }
+    
+    function deleteProject(projectId) {
+        if (confirm(`Êtes-vous sûr de vouloir supprimer le projet ${projectId} et tous ses besoins?`)) {
+            projects = projects.filter(p => p.id !== projectId);
+            
+            fixedAssignments = fixedAssignments.filter(d => d.projectId !== projectId);
+            
+            setStatus(`Projet ${projectId} supprimé.`, false);
+            loadDataFromUI(false);
+            renderFixedList();
+            
+            if(projectBeingEdited && projectBeingEdited.id === projectId) {
+                resetProjectForm();
+            }
+        }
+    }
+    
+    // --- Gestion des Besoins (Needs) ---
+
+    function saveNeed() {
+        if (!projectBeingEdited) {
+            setStatus("Veuillez d'abord créer ou sélectionner un projet.", true);
+            return;
+        }
+        
+        const metier = needMetierSelect.value;
+        const debut = needDebutInput.value;
+        const fin = needFinInput.value;
+        const slots = parseInt(needSlotsInput.value, 10);
+        const competencesRequises = needCompetencesInput.value.split(',').map(c => c.trim()).filter(c => c.length > 0);
+        const needId = parseInt(currentNeedId.value, 10);
+        
+        if (!metier || !debut || !fin || isNaN(slots) || slots < 1) {
+            setStatus("Veuillez remplir tous les champs du besoin (Métier, Dates, Slots > 0).", true);
+            return;
+        }
+
+        const newNeed = {
+            metier,
+            competencesRequises,
+            debut,
+            fin,
+            slots
+        };
+
+        if (needBeingEditedId) {
+            // Update existing need
+            const index = projectBeingEdited.needs.findIndex(n => n.needId === needId);
+            if (index !== -1) {
+                projectBeingEdited.needs[index] = { ...newNeed, needId }; // Keep the original ID
+                setStatus(`Besoin (${metier}) mis à jour pour ${projectBeingEdited.id}.`, false);
+            } else {
+                setStatus("Erreur: Besoin introuvable pour la mise à jour.", true);
+            }
+        } else {
+            // Add new need
+            const newId = getNextNeedId(projectBeingEdited);
+            projectBeingEdited.needs.push({ ...newNeed, needId: newId });
+            setStatus(`Nouveau besoin (${metier}) ajouté à ${projectBeingEdited.id}.`, false);
+        }
+        
+        resetNeedForm();
+        renderNeedsList(projectBeingEdited);
+        loadDataFromUI(false); // Update all UI lists and selectors
+    }
+    
+    function editNeed(needId) {
         const need = projectBeingEdited.needs.find(n => n.needId === needId);
         if (!need) return;
-
+        
         needBeingEditedId = needId;
         currentNeedId.value = needId;
         needMetierSelect.value = need.metier;
         needDebutInput.value = need.debut;
         needFinInput.value = need.fin;
         needSlotsInput.value = need.slots;
-        needCompetencesInput.value = (need.competencesRequises || []).join(', ');
+        needCompetencesInput.value = need.competencesRequises.join(', ');
         
-        currentNeedEditStatus.textContent = `Édition Besoin ${needId}`;
+        saveNeedBtn.textContent = `Mettre à jour le besoin ID ${needId}`;
         cancelNeedEditBtn.style.display = 'inline-block';
-        needStatus.textContent = '';
-    }
-
-    function saveNeed(e) {
-        e.preventDefault();
-        if (!projectBeingEdited) {
-            needStatus.textContent = "Erreur: Sélectionnez ou créez d'abord un projet.";
-            needStatus.className = 'data-status error';
-            return;
-        }
-
-        const metier = needMetierSelect.value;
-        const debut = needDebutInput.value;
-        const fin = needFinInput.value;
-        const slots = parseInt(needSlotsInput.value, 10);
-        const competencesRequisesStr = needCompetencesInput.value.trim();
-        const competencesRequises = competencesRequisesStr ? competencesRequisesStr.split(',').map(c => c.trim()) : [];
-
-        if (!metier || !debut || !fin || isNaN(slots) || slots < 1) {
-            needStatus.textContent = "Veuillez remplir le métier, les dates et la quantité (Slots).";
-            needStatus.className = 'data-status error';
-            return;
-        }
-
-        const isEditing = !!needBeingEditedId;
-        let needId = currentNeedId.value || `N${projectBeingEdited.needs.length + 1}`;
-        if (isEditing && currentNeedId.value) {
-            needId = currentNeedId.value; // Keep the existing ID if editing
-        } else if (projectBeingEdited.needs.some(n => n.needId === needId)) {
-             // Generate a unique ID if a new need happens to have an existing ID
-             let i = 1;
-             while (projectBeingEdited.needs.some(n => n.needId === `N${i}`)) {
-                i++;
-             }
-             needId = `N${i}`;
-        }
         
-        const newNeed = { needId, metier, debut, fin, slots, competencesRequises };
-
-        if (isEditing) {
-            const index = projectBeingEdited.needs.findIndex(n => n.needId === needId);
-            if (index !== -1) {
-                projectBeingEdited.needs[index] = newNeed;
-                needStatus.textContent = `Besoin ${needId} mis à jour.`;
-                needStatus.className = 'data-status success';
-            } else {
-                needStatus.textContent = `Erreur: Besoin ${needId} introuvable pour la mise à jour.`;
-                needStatus.className = 'data-status error';
-            }
-        } else {
-            projectBeingEdited.needs.push(newNeed);
-            needStatus.textContent = `Nouveau besoin ${needId} ajouté.`;
-            needStatus.className = 'data-status success';
-        }
-
-        renderProjectNeedsList(projectBeingEdited);
+        document.getElementById('needsManagementSection').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function deleteNeed(needId) {
+        if (!projectBeingEdited) return;
+        
+        projectBeingEdited.needs = projectBeingEdited.needs.filter(n => n.needId !== needId);
+        
+        // Remove directives related to this specific need
+        fixedAssignments = fixedAssignments.filter(d => !(d.projectId === projectBeingEdited.id && d.needId === needId));
+        
+        setStatus(`Besoin ID ${needId} supprimé du projet ${projectBeingEdited.id}.`, false);
+        renderNeedsList(projectBeingEdited);
+        renderFixedList();
+        loadDataFromUI(false);
         resetNeedForm();
     }
-
-    function deleteNeed(projectId, needId) {
-        if (!projectBeingEdited || projectBeingEdited.id !== projectId) {
-            // Should not happen if editProject is called first, but for safety
-            const project = projects.find(p => p.id === projectId);
-            if (!project) return;
-            projectBeingEdited = project;
-        }
-        
-        if (confirm(`Êtes-vous sûr de vouloir supprimer le besoin ${needId} du projet ${projectId}?`)) {
-            projectBeingEdited.needs = projectBeingEdited.needs.filter(n => n.needId !== needId);
-            fixedAssignments = fixedAssignments.filter(d => d.projectId !== projectId || (d.needId && d.needId !== needId)); // Remove fixed assignments linked to this need
-            renderProjectNeedsList(projectBeingEdited);
-            renderFixedList();
-            resetNeedForm();
-            needStatus.textContent = `Besoin ${needId} supprimé.`;
-            needStatus.className = 'data-status success';
-            // Also clear results
-            assignmentsContainer.innerHTML = '<p style="color: #9ca3af; font-style: italic;">Cliquez sur \'Générer une nouvelle planification (IA)\' pour mettre à jour les affectations.</p>';
-            summaryText.textContent = "Affectations: 0";
-        }
-    }
-
-    // ===========================================
-    // RENDERING DES LISTES (Projets, Besoins, Fixes)
-    // ===========================================
-
-    function renderProjectsList() {
-      projectsListEl.innerHTML = '';
-      if (projects.length === 0) {
-        projectsListEl.innerHTML = '<p style="color: #9ca3af; font-style: italic;">Aucun projet chargé.</p>';
-        return;
-      }
-      
-      // Sort projects by ID
-      projects.sort((a, b) => a.id.localeCompare(b.id));
-
-      projects.forEach(project => {
-        const item = document.createElement("div");
-        item.className = "project-management-item";
-        item.innerHTML = `
-          <div class="project-management-item-details">
-            <strong>${project.id} - ${project.nom}</strong>
-            <small>Besoins: ${project.needs.length}</small>
-          </div>
-          <div class="project-management-actions">
-            <button onclick="editProject('${project.id}')">Éditer/Besoins</button>
-            <button class="btn-secondary" onclick="deleteProject('${project.id}')" style="background: #ef4444; color: white;">Supprimer</button>
-          </div>
-        `;
-        projectsListEl.appendChild(item);
-      });
-    }
-
-    function renderProjectNeedsList(project) {
-        projectNeedsList.innerHTML = '';
-        if (project.needs.length === 0) {
-            projectNeedsList.innerHTML = '<p style="color: #9ca3af; font-style: italic;">Aucun besoin pour ce projet.</p>';
+    
+    function renderProjectManagementList() {
+        projectManagementList.innerHTML = '';
+        if (projects.length === 0) {
+            projectManagementList.innerHTML = '<p style="color:#9ca3af; font-style:italic;">Aucun projet dans la base de données.</p>';
             return;
         }
+        
+        const sorted = [...projects].sort((a, b) => a.id.localeCompare(b.id));
 
-        project.needs.sort((a, b) => a.needId.localeCompare(b.needId));
-
-        project.needs.forEach(need => {
-            const item = document.createElement("div");
-            item.className = "need-item";
-            const competencesText = (need.competencesRequises && need.competencesRequises.length > 0) 
-                                    ? ` (${need.competencesRequises.join(', ')})` 
-                                    : '';
-            item.innerHTML = `
-                <div class="need-item-details">
-                    <strong>${need.needId} - ${need.metier.toUpperCase()} (${need.slots} slots)</strong>
-                    <small>Du ${need.debut} au ${need.fin}${competencesText}</small>
+        sorted.forEach(p => {
+            const totalNeeds = p.needs.length;
+            const totalSlots = p.needs.reduce((sum, n) => sum + n.slots, 0);
+            const metiers = [...new Set(p.needs.map(n => n.metier))].join(', ');
+            
+            const div = document.createElement('div');
+            div.className = 'project-management-item';
+            div.innerHTML = `
+                <div class="project-management-item-details">
+                    <strong>${p.id} – ${p.nom}</strong>
+                    <small>${metiers} | ${totalNeeds} besoins | ${totalSlots} slots totaux</small>
                 </div>
-                <div class="need-actions">
-                    <button onclick="editNeed('${project.id}', '${need.needId}')">Éditer</button>
-                    <button class="btn-secondary" onclick="deleteNeed('${project.id}', '${need.needId}')" style="background: #ef4444; color: white;">Supprimer</button>
+                <div class="project-management-actions">
+                    <button class="edit-project-btn btn-secondary" data-id="${p.id}">Éditer</button>
+                    <button class="delete-project-btn" data-id="${p.id}">Supprimer</button>
                 </div>
             `;
-            projectNeedsList.appendChild(item);
+            projectManagementList.appendChild(div);
+        });
+        
+        projectManagementList.querySelectorAll('.edit-project-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => editProject(e.target.dataset.id));
+        });
+        projectManagementList.querySelectorAll('.delete-project-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => deleteProject(e.target.dataset.id));
         });
     }
 
-    function renderFixedEmployeeSelect() {
-      fixedEmployeeSelect.innerHTML = '<option value="">Sélectionner un Employé...</option>';
-      employees.sort((a, b) => a.nom.localeCompare(b.nom)).forEach(emp => {
-        const option = document.createElement("option");
-        option.value = emp.id;
-        option.textContent = `${emp.nom} (${emp.metier}, ${emp.id})`;
-        fixedEmployeeSelect.appendChild(option);
-      });
+    // ===========================================
+    // LOGIQUE DE PLANIFICATION (MISE À JOUR)
+    // ===========================================
+
+    function parseDate(str) { return new Date(str + "T00:00:00"); }
+    
+    // Fonction révisée pour vérifier le chevauchement entre DEUX BESOINS
+    function needsOverlap(n1, n2) {
+      const s1 = parseDate(n1.debut);
+      const e1 = parseDate(n1.fin);
+      const s2 = parseDate(n2.debut);
+      const e2 = parseDate(n2.fin);
+      if (e1 < s2 || e2 < s1) return false;
+      return true;
+    }
+    
+    // Helper pour trouver un besoin par sa référence {projectId, needId}
+    function getNeedByRef(ref) {
+        const proj = projects.find(p => p.id === ref.projectId);
+        if (proj) {
+            return proj.needs.find(n => n.needId === ref.needId);
+        }
+        return null;
     }
 
-    function renderFixedProjectSelect() {
-      fixedProjectSelect.innerHTML = '<option value="">Sélectionner un Projet...</option>';
-      projects.sort((a, b) => a.id.localeCompare(b.id)).forEach(proj => {
-        const option = document.createElement("option");
-        option.value = proj.id;
-        option.textContent = `${proj.nom} (${proj.id})`;
-        fixedProjectSelect.appendChild(option);
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    
+    // Fonction révisée pour scorer un employé pour un BESOIN
+    function scoreEmployeeForNeed(emp, need, employeeLoad) {
+      if (!emp.disponibilite || !emp.disponibilite.toLowerCase().includes("disponible")) return null; 
+      if (emp.metier !== need.metier) return null;
+      
+      const required = (need.competencesRequises || []).map(c => c.toLowerCase());
+      const empSkills = (emp.competences || []).map(c => c.toLowerCase());
+      const matched = required.filter(r => empSkills.includes(r)).length;
+      
+      if (required.length > 0 && matched === 0) return null; // Must match at least one if skills are required
+      
+      const competenceScore = required.length > 0 ? matched / required.length : 1; 
+      const evalScore = Math.min(Math.max(emp.evaluation || 0, 0), 5) / 5;
+      const maxDistance = 50;
+      const distanceScore = Math.max(0, 1 - ((emp.distanceKm || maxDistance) / maxDistance));
+      
+      let baseScore = 0.5 * competenceScore + 0.3 * evalScore + 0.2 * distanceScore;
+      const load = employeeLoad[emp.id] || 0;
+      const loadFactor = 1 / (1 + load * 0.5); // Punition pour la charge de travail
+      const finalScore = baseScore * loadFactor;
+      
+      return {
+        finalScore, competenceScore, evalScore, distanceScore, matched, loadFactor
+      };
+    }
+
+    function planAllProjectsGlobally() {
+      if (!loadDataFromUI()) {
+        assignmentsContainer.innerHTML = '<p style="color:#f97373;">Erreur de chargement des données. Veuillez corriger le JSON des employés ou vérifier la liste des projets.</p>';
+        return;
+      }
+      if (projects.length === 0) {
+        assignmentsContainer.innerHTML = '<p style="color:#f97373;">Veuillez ajouter des projets/besoins avant de lancer la planification.</p>';
+        return;
+      }
+
+      assignmentsContainer.innerHTML = '<p style="color:#38bdf8;">Planification en cours...</p>';
+      
+      // Tri des besoins par date de début (pour prioriser les projets imminents)
+      const allNeeds = projects.flatMap(p => 
+        p.needs.map(n => ({ ...n, projectId: p.id, projectName: p.nom }))
+      ).sort((a, b) => parseDate(a.debut) - parseDate(b.debut));
+
+      // assignments: { "P-101": { 1: [assignments for need 1], 2: [...] } }
+      const assignments = {};
+      // employeeAssignments: { "M-001": [ {projectId: "P-101", needId: 1, debut: "...", fin: "..."}, ... ] }
+      const employeeAssignments = {};
+      const employeeLoad = {};
+
+      projects.forEach(p => { assignments[p.id] = {}; });
+      
+      // Initialize employeeAssignments & load
+      employees.forEach(e => { 
+        employeeAssignments[e.id] = [];
+        employeeLoad[e.id] = 0;
       });
+
+      fixedAssignments = fixedAssignments.map(d => ({ ...d, status: 'pending', reason: null, conflitNeedRef: null }));
+      
+      // 1) Appliquer d'abord les directives fixes
+      for (let i = 0; i < fixedAssignments.length; i++) {
+        const directive = fixedAssignments[i];
+        const emp = employees.find(e => e.id === directive.empId);
+
+        if (!emp) continue;
+
+        let status = 'failed';
+        let reason = `Employé ${directive.empId} introuvable.`;
+        let bestNeedForFixed = null;
+        let proj = null;
+        
+        // Find the project and all compatible needs
+        proj = projects.find(pr => pr.id === directive.projectId);
+        if (!proj) { 
+            reason = `Projet ${directive.projectId} introuvable.`;
+            fixedAssignments[i].status = 'conflict_proj_not_found';
+            fixedAssignments[i].reason = reason;
+            continue;
+        }
+
+        if (!emp.disponibilite || !emp.disponibilite.toLowerCase().includes("disponible")) {
+            reason = `Employé non disponible (${emp.disponibilite || 'N/A'})`;
+            fixedAssignments[i].status = 'conflict_dispo';
+            fixedAssignments[i].reason = reason;
+            continue;
+        }
+
+        const candidatesNeeds = proj.needs.filter(n => n.metier === emp.metier);
+
+        if (candidatesNeeds.length === 0) {
+            reason = `Aucun besoin de ${emp.metier} dans ce projet.`;
+            fixedAssignments[i].status = 'conflict_metier';
+            fixedAssignments[i].reason = reason;
+            continue;
+        }
+        
+        // Find the best available need (priority: no overlap, has slots)
+        for (const need of candidatesNeeds) {
+            if (!assignments[proj.id][need.needId]) { assignments[proj.id][need.needId] = []; }
+
+            if (assignments[proj.id][need.needId].length < need.slots) {
+                
+                // Check for overlap with existing assignments (needs) for this employee
+                let overlap = false;
+                for (const assignedNeedRef of employeeAssignments[emp.id]) {
+                    const assignedNeed = getNeedByRef(assignedNeedRef);
+                    if (assignedNeed && needsOverlap(assignedNeed, need)) { 
+                        overlap = true;
+                        fixedAssignments[i].conflitNeedRef = assignedNeedRef;
+                        reason = `Chevauchement avec ${assignedNeed.metier} de ${assignedNeedRef.projectId}`;
+                        break;
+                    }
+                }
+                if (!overlap) {
+                    bestNeedForFixed = need;
+                    break; 
+                }
+            } else {
+                reason = `Slots complets pour le besoin ${need.needId} (${need.metier}).`;
+                fixedAssignments[i].status = 'conflict_slots';
+            }
+        }
+
+        if (bestNeedForFixed) {
+            status = 'assigned';
+            const score = scoreEmployeeForNeed(emp, bestNeedForFixed, employeeLoad) || {
+                finalScore: 1.0, competenceScore: 1.0, evalScore: (emp.evaluation || 0) / 5, 
+                distanceScore: Math.max(0, 1 - ((emp.distanceKm || 50) / 50)), matched: (bestNeedForFixed.competencesRequises || []).length, loadFactor: 1 
+            };
+            
+            assignments[proj.id][bestNeedForFixed.needId].push({ emp, s: score, isFixed: true });
+
+            employeeAssignments[emp.id].push({ projectId: proj.id, needId: bestNeedForFixed.needId });
+            employeeLoad[emp.id] = (employeeLoad[emp.id] || 0) + 1;
+        }
+
+        fixedAssignments[i].status = status;
+        fixedAssignments[i].reason = reason;
+        fixedAssignments[i].employeeName = emp.nom;
+        fixedAssignments[i].projectName = proj.nom;
+      }
+
+      // 2) Compléter les slots restants avec IA + shuffle
+      for (const need of allNeeds) {
+        const { projectId, needId, slots } = need;
+        const shuffledEmployees = shuffleArray(employees);
+
+        // Ensure the assignment array is initialized (for needs that didn't get fixed assignments)
+        if (!assignments[projectId][needId]) { assignments[projectId][needId] = []; }
+
+        for (let slot = assignments[projectId][needId].length; slot < slots; slot++) {
+          const candidates = [];
+
+          for (const emp of shuffledEmployees) {
+            const alreadyAssignedHere = assignments[projectId][needId].some(a => a.emp.id === emp.id);
+            if (alreadyAssignedHere) continue;
+
+            const assignedNeedsRefs = employeeAssignments[emp.id] || [];
+            let conflit = false;
+            
+            for (const assignedNeedRef of assignedNeedsRefs) {
+                const assignedNeed = getNeedByRef(assignedNeedRef);
+                if (assignedNeed && needsOverlap(assignedNeed, need)) { 
+                    conflit = true;
+                    break;
+                }
+            }
+            if (conflit) continue;
+
+            const s = scoreEmployeeForNeed(emp, need, employeeLoad);
+            if (s) { candidates.push({ emp, s, isFixed: false }); }
+          }
+
+          if (candidates.length === 0) continue;
+
+          candidates.sort((a, b) => b.s.finalScore - a.s.finalScore);
+          const chosen = candidates[0];
+
+          assignments[projectId][needId].push(chosen);
+          employeeAssignments[chosen.emp.id].push({ projectId, needId });
+          employeeLoad[chosen.emp.id] = (employeeLoad[chosen.emp.id] || 0) + 1;
+        }
+      }
+
+      return { assignments, employeeAssignments, employeeLoad };
+    }
+
+    // ===========================================
+    // RENDU UI
+    // ===========================================
+    
+    function renderProjectsList() {
+      projectsListEl.innerHTML = "";
+      // Calculate max end date for sorting
+      const projectsWithDates = projects.map(p => {
+          let startDate = null;
+          let endDate = null;
+          if (p.needs && p.needs.length > 0) {
+              startDate = p.needs.reduce((min, n) => (min === null || parseDate(n.debut) < min) ? parseDate(n.debut) : min, null);
+              endDate = p.needs.reduce((max, n) => (max === null || parseDate(n.fin) > max) ? parseDate(n.fin) : max, null);
+          }
+          return { ...p, sortDate: startDate, displayStart: startDate ? startDate.toISOString().substring(0, 10) : 'N/A', displayEnd: endDate ? endDate.toISOString().substring(0, 10) : 'N/A' };
+      });
+      
+      const sorted = projectsWithDates.sort((a, b) => a.sortDate - b.sortDate);
+      
+      for (const p of sorted) {
+        const totalSlots = p.needs.reduce((sum, n) => sum + n.slots, 0);
+        const metiers = [...new Set(p.needs.map(n => n.metier))].join(', ');
+        
+        const div = document.createElement("div");
+        div.className = "project-line";
+        div.innerHTML = `
+          <strong>${p.id} – ${p.nom}</strong>
+          <div class="project-meta">
+            <span>Métiers : ${metiers}</span>
+            <span>Slots Totaux : ${totalSlots}</span><br/>
+            <span>Période Globale : ${p.displayStart} → ${p.displayEnd}</span>
+          </div>
+        `;
+        projectsListEl.appendChild(div);
+      }
     }
 
     function renderFixedList() {
-      fixedAssignmentsList.innerHTML = '';
-      if (fixedAssignments.length === 0) {
-        fixedAssignmentsList.innerHTML = '<p style="color: #6b7280; font-size: 0.75rem; font-style: italic; padding-right: 5px;">Aucune directive fixe en attente.</p>';
+      if (!fixedAssignments.length) {
+        fixedList.textContent = "Aucune directive pour l’instant.";
         return;
       }
+      fixedList.innerHTML = "";
       
-      // Sort to show errors/warnings first
-      fixedAssignments.sort((a, b) => {
-        if (a.status === 'conflict_overlap' || a.status === 'conflict_skill' || a.status === 'conflict_metier' || a.status === 'conflict_unavailable') return -1;
-        if (b.status === 'conflict_overlap' || b.status === 'conflict_skill' || b.status === 'conflict_metier' || b.status === 'conflict_unavailable') return 1;
-        return 0;
-      });
-
-      fixedAssignments.forEach((d, i) => {
+      fixedAssignments.forEach((d, index) => { 
+        const proj = projects.find(pr => pr.id === d.projectId);
         const emp = employees.find(e => e.id === d.empId);
-        const proj = projects.find(p => p.id === d.projectId);
-        if (!emp || !proj) return; // Should not happen after loadDataFromUI
-
+        if (!proj || !emp) return;
+        
         const div = document.createElement("div");
         div.className = "fixed-item";
+        
         let statusText = '';
         let solutionText = '';
-        let statusClass = 'fixed-item-pending'; // Default for 'pending' or unhandled
+        let statusClass = 'fixed-item-success';
         
+        let needInfo = '';
+        const assignedNeed = getNeedByRef({ projectId: d.projectId, needId: d.needId });
+        if (assignedNeed) {
+            needInfo = ` (Besoin: ${assignedNeed.metier} ${assignedNeed.debut}→${assignedNeed.fin})`;
+        } else if (d.needId) {
+             needInfo = ` (Besoin ID ${d.needId} - Introuvable)`;
+        }
+
         switch(d.status) {
             case 'assigned':
-                statusText = '– Affectation RESPECTÉE.';
-                statusClass = 'fixed-item-success';
-                break;
-            case 'pending':
-                statusText = '– En attente de planification.';
-                statusClass = 'fixed-item-warning';
-                break;
-            case 'conflict_proj_not_found':
-                statusText = `– ERREUR : Projet introuvable.`;
-                solutionText = `**Action :** Supprimer la directive ou ajouter le projet.`;
-                statusClass = 'fixed-item-error';
-                break;
-            case 'conflict_emp_not_found':
-                statusText = `– ERREUR : Employé introuvable.`;
-                solutionText = `**Action :** Supprimer la directive ou ajouter l'employé.`;
-                statusClass = 'fixed-item-error';
+                statusText = `– Affectation RESPECTÉE${needInfo}.`;
                 break;
             case 'conflict_metier':
-                const needForConflictMetier = d.conflictNeedRef ? getNeedByRef(d.projectId, d.conflictNeedRef) : { metier: 'N/A' };
-                statusText = `– CONFLIT : Métier (${emp.metier || 'N/A'}) incompatible avec besoin ${needForConflictMetier.needId} (${needForConflictMetier.metier}).`;
-                solutionText = `**Action :** Choisir un ${needForConflictMetier.metier} ou vérifier les compétences croisées.`;
+                statusText = `– CONFLIT : Métier (${emp.metier || 'N/A'}) non requis.`;
+                solutionText = `**Action :** Le projet n'a pas de besoin pour ce métier.`;
                 statusClass = 'fixed-item-error';
                 break;
-            case 'conflict_skill':
-                const needForConflictSkill = d.conflictNeedRef ? getNeedByRef(d.projectId, d.conflictNeedRef) : { competencesRequises: [] };
-                statusText = `– CONFLIT : Compétences requises (${(needForConflictSkill.competencesRequises || []).join(', ')}) non couvertes.`;
-                solutionText = `**Action :** Mettre à jour les compétences de ${emp.nom}.`;
-                statusClass = 'fixed-item-warning';
-                break;
-            case 'conflict_unavailable':
+            case 'conflict_dispo':
                 statusText = `– CONFLIT : Employé indisponible (${emp.disponibilite || 'N/A'}).`;
                 solutionText = `**Action :** Mettre à jour la disponibilité.`;
                 statusClass = 'fixed-item-error';
@@ -900,473 +1075,201 @@
                 statusClass = 'fixed-item-error';
                 break;
             case 'conflict_overlap':
-                const conflictNeed = getNeedByRef(d.conflictProjId, d.conflictNeedRef);
-                const conflictNeedName = conflictNeed ? `Besoin ${d.conflictNeedRef} de ${d.conflictProjName}` : d.conflictProjName;
-                statusText = `– CONFLIT : Chevauchement de dates avec ${conflictNeedName} de ${d.conflictProjName}.`;
-                solutionText = `**Action :** Ajuster les dates pour ${proj.nom} ou l'autre projet.`;
+                const conflictNeed = getNeedByRef(d.conflitNeedRef);
+                statusText = `– CONFLIT : Chevauchement avec ${d.conflitNeedRef.projectId} (${conflictNeed ? conflictNeed.metier : 'N/A'}).`;
+                solutionText = `**Action :** Examiner les dates. Proposer un échange.`;
+                statusClass = 'fixed-item-error';
+                break;
+            case 'conflict_proj_not_found':
+                statusText = `– CONFLIT : Projet ${d.projectId} introuvable.`;
+                solutionText = `**Action :** Vérifier l'ID du projet.`;
                 statusClass = 'fixed-item-error';
                 break;
             default:
-                statusText = `– Statut inconnu: ${d.status}`;
-                statusClass = 'fixed-item-warning';
+                statusText = '– Échec de l\'affectation.';
+                statusClass = 'fixed-item-error';
         }
 
-        const projectDisplay = d.assignedNeedRef ? `${proj.nom} (Besoin ${d.assignedNeedRef})` : `${proj.nom}`;
+        let solutionHtml = solutionText ? `<div class="fixed-item-solution">${solutionText}</div>` : '';
 
         div.innerHTML = `
-            <div class="fixed-item-details">
-                <strong>${emp.nom} (${emp.id}) -> ${projectDisplay}</strong>
-                <small>${statusText} ${solutionText ? ' | ' + solutionText : ''}</small>
+          <div class="fixed-item-content">
+            • <span>${emp.nom}</span> doit être affecté à <span>${proj.id}</span>
+            <div class="${d.status === 'assigned' ? 'fixed-item-success' : 'fixed-item-error'}">
+              ${statusText}
             </div>
-            <span class="fixed-item-status ${statusClass}"></span>
-            <button class="delete-fixed-btn" onclick="deleteFixedAssignment(${i})">X</button>
+            ${solutionHtml}
+          </div>
+          <button class="delete-fixed-btn" data-index="${index}">X</button>
         `;
-        fixedAssignmentsList.appendChild(div);
+        fixedList.appendChild(div);
       });
-    }
-    
-    function deleteFixedAssignment(index) {
-        fixedAssignments.splice(index, 1);
-        renderFixedList();
-        summaryText.textContent = "Affectations mises à jour. Cliquez sur 'Générer une nouvelle planification (IA)' pour re-valider les affectations.";
-    }
-
-    // ===========================================
-    // MOTEUR DE PLANIFICATION (Affectation IA)
-    // ===========================================
-
-    /**
-     * Calcule le score d'un employé pour un besoin donné.
-     * Le score est basé sur:
-     * 1. Compétences (Match de 100% si toutes les compétences requises sont présentes) - Poids 50%
-     * 2. Distance (Inversement proportionnel à la distance) - Poids 30%
-     * 3. Évaluation (Directement proportionnel à l'évaluation) - Poids 20%
-     * 4. Charge de Travail (Pénalité si déjà affecté ailleurs durant la période) - Multiplicateur
-     *
-     * @param {Object} emp L'objet employé.
-     * @param {Object} need L'objet besoin.
-     * @param {Object} employeeLoad Un objet map d'ID d'employés à une liste d'affectations (pour vérifier les chevauchements).
-     * @returns {Object|null} Le score détaillé ou null si incompatible.
-     */
-    function scoreEmployeeForNeed(emp, need, employeeLoad) {
-      // 0. Vérification de la disponibilité et du métier
-      if (!emp.disponibilite || !emp.disponibilite.toLowerCase().includes("disponible")) return null;
-      if (emp.metier !== need.metier) return null;
-
-      // 1. Score de Compétences (Poids 50%)
-      const required = (need.competencesRequises || []).map(c => c.toLowerCase());
-      const empSkills = (emp.competences || []).map(c => c.toLowerCase());
-      const matched = required.filter(r => empSkills.includes(r)).length;
       
-      // Si des compétences sont requises et qu'aucune ne correspond, l'employé est incompatible (filtre strict)
-      if (required.length > 0 && matched === 0) return null;
-
-      const skillScore = required.length > 0 ? (matched / required.length) : 1; // 1 si aucune compétence requise
-
-      // 2. Score de Distance (Poids 30%)
-      // Max score at 1km (1), Min score at 150km (0.01). Score = 1 - (distance / 150)
-      const distanceScore = Math.max(0.01, 1 - (emp.distanceKm / 150));
-
-      // 3. Score d'Évaluation (Poids 20%)
-      // L'évaluation est entre 3.0 et 5.0. On normalise entre 0 et 1. Score = (Evaluation - 3) / 2
-      const evaluationScore = (parseFloat(emp.evaluation) - 3.0) / 2.0;
-
-      // Score Brut (Normalisé sur 1)
-      const rawScore = (skillScore * 0.5) + (distanceScore * 0.3) + (evaluationScore * 0.2);
-
-      // 4. Pénalité de Charge de Travail (Multiplicateur)
-      let loadPenalty = 1.0;
-      const assignments = employeeLoad[emp.id] || [];
-      let conflicts = [];
-
-      for (const assignment of assignments) {
-          const assignedNeed = getNeedByRef(assignment.projectId, assignment.needId);
-          if (assignedNeed && datesOverlap(need.debut, need.fin, assignedNeed.debut, assignedNeed.fin)) {
-              // Pénalité pour chevauchement: on pénalise le score. Plus le chevauchement est long, plus la pénalité est forte.
-              // Ici, on utilise un simple multiplicateur pour rendre moins prioritaire.
-              loadPenalty = Math.min(loadPenalty, 0.5);
-              
-              // Stocker le conflit pour les fixedAssignments (si l'affectation en cours est fixe)
-              conflicts.push({
-                  type: 'overlap',
-                  projectId: assignment.projectId,
-                  needId: assignment.needId,
-                  projName: assignment.projectName // Stocked in assignment object
-              });
-          }
-      }
-      
-      // Score final
-      const finalScore = rawScore * loadPenalty;
-
-      return {
-        skillScore,
-        distanceScore,
-        evaluationScore,
-        rawScore,
-        loadPenalty,
-        finalScore,
-        matchedSkills: matched,
-        totalRequiredSkills: required.length,
-        conflicts
-      };
-    }
-
-    function generatePlanning() {
-      // 1. Initialiser les structures
-      assignmentsContainer.innerHTML = '';
-      let assignments = {}; // { projectId: { needId: [ {emp, s, isFixed}, ... ], ... }, ... }
-      let employeeAssignments = {}; // { empId: [ { projectId, needId, debut, fin, projectName }, ... ], ... }
-      let totalAssignments = 0;
-      
-      employees.forEach(e => employeeAssignments[e.id] = []);
-
-      // 2. Traiter les directives d'affectation fixes (Priority 1)
-      let fixedAssignmentsToProcess = [...fixedAssignments]; // Copy to avoid modifying the list during iteration
-      fixedAssignments = []; // Clear and re-populate with results
-
-      fixedAssignmentsToProcess.forEach(directive => {
-        let status = 'pending';
-        let reason = null;
-        let conflictNeedRef = null;
-        let conflictProjId = null;
-        let conflictProjName = null;
-        let assignedNeedRef = null;
-        
-        const emp = employees.find(e => e.id === directive.empId);
-        const proj = projects.find(pr => pr.id === directive.projectId);
-        
-        // Validation basique
-        if (!proj) {
-            reason = `Projet ${directive.projectId} introuvable.`;
-            status = 'conflict_proj_not_found';
-        } else if (!emp) {
-            reason = `Employé ${directive.empId} introuvable.`;
-            status = 'conflict_emp_not_found';
-        } else if (!emp.disponibilite || !emp.disponibilite.toLowerCase().includes("disponible")) {
-            reason = `Employé non disponible (${emp.disponibilite || 'N/A'}).`;
-            status = 'conflict_unavailable';
-        } else {
-            // Trouver le meilleur besoin non saturé pour cet employé
-            let bestNeed = null;
-            let bestScore = -1;
-            let compatibleNeeds = []; // Needs that are compatible (metier/skill match)
-
-            // Sort needs by ascending start date to favor immediate needs
-            const sortedNeeds = [...proj.needs].sort((a, b) => parseDate(a.debut) - parseDate(b.debut));
-
-            for (const need of sortedNeeds) {
-                const s = scoreEmployeeForNeed(emp, need, employeeAssignments);
-
-                if (s) {
-                    compatibleNeeds.push(need.needId);
-                    
-                    // Check if the need already has available slots
-                    const currentAssignmentsCount = (assignments[proj.id] && assignments[proj.id][need.needId]) ? assignments[proj.id][need.needId].length : 0;
-                    
-                    if (currentAssignmentsCount < need.slots) {
-                        // Check for time overlap conflict with *already assigned* slots for this employee
-                        let overlapConflict = false;
-                        for (const existingAssignment of employeeAssignments[emp.id]) {
-                            const existingNeed = getNeedByRef(existingAssignment.projectId, existingAssignment.needId);
-                            if (existingNeed && datesOverlap(need.debut, need.fin, existingNeed.debut, existingNeed.fin)) {
-                                overlapConflict = true;
-                                conflictProjId = existingAssignment.projectId;
-                                conflictNeedRef = existingAssignment.needId;
-                                conflictProjName = existingAssignment.projectName;
-                                break;
-                            }
-                        }
-
-                        if (!overlapConflict) {
-                            // This is a candidate for assignment
-                            if (s.finalScore > bestScore) {
-                                bestScore = s.finalScore;
-                                bestNeed = need;
-                            }
-                        } else {
-                             // Overlap detected with a previous fixed or planned assignment for this employee
-                            status = 'conflict_overlap';
-                            reason = `Chevauchement de dates avec ${conflictProjName} (Besoin ${conflictNeedRef}).`;
-                        }
-                    } else {
-                        // Need is saturated, but compatible
-                        if (bestNeed === null) { // Only set to slots conflict if no other, better conflict exists
-                           status = 'conflict_slots';
-                           reason = `Slots complets pour ${need.needId} (Score: ${s.finalScore.toFixed(2)}).`;
-                        }
-                    }
-
-                } else if (emp.metier !== need.metier) {
-                    // This is only set if no better match/assignment is found later
-                    if (bestNeed === null && status === 'pending') {
-                       status = 'conflict_metier';
-                       reason = `Métier (${emp.metier}) incompatible avec besoin ${need.needId} (${need.metier}).`;
-                       conflictNeedRef = need.needId;
-                    }
-                } else if (s === null) {
-                    // Skill mismatch (if no other conflict is set)
-                     if (bestNeed === null && status === 'pending') {
-                        status = 'conflict_skill';
-                        reason = `Compétences requises non couvertes pour besoin ${need.needId}.`;
-                        conflictNeedRef = need.needId;
-                    }
-                }
-            }
-            
-            // Final assignment if a best need was found
-            if (bestNeed) {
-                const chosen = { emp, s: scoreEmployeeForNeed(emp, bestNeed, employeeAssignments), isFixed: true };
-                assignments[proj.id] = assignments[proj.id] || {};
-                assignments[proj.id][bestNeed.needId] = assignments[proj.id][bestNeed.needId] || [];
-                assignments[proj.id][bestNeed.needId].push(chosen);
-                employeeAssignments[emp.id].push({
-                    projectId: proj.id,
-                    needId: bestNeed.needId,
-                    debut: bestNeed.debut,
-                    fin: bestNeed.fin,
-                    projectName: proj.nom // Store project name for easy conflict reporting
-                });
-                status = 'assigned';
-                reason = `Affecté à ${proj.id} (Besoin ${bestNeed.needId}). Score: ${chosen.s.finalScore.toFixed(2)}`;
-                assignedNeedRef = bestNeed.needId;
-                totalAssignments++;
-            }
-        }
-        
-        // Add the result back to fixedAssignments list
-        fixedAssignments.push({
-            ...directive,
-            status,
-            reason,
-            conflictNeedRef,
-            conflictProjId,
-            conflictProjName,
-            assignedNeedRef,
-            employeeName: emp ? emp.nom : directive.empId,
-            projectName: proj ? proj.nom : directive.projectId
+      fixedList.querySelectorAll('.delete-fixed-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const index = e.target.getAttribute('data-index'); 
+          removeFixedAssignment(parseInt(index));
         });
       });
+    }
 
+    function renderAssignments(result) {
+      const { assignments, employeeAssignments, employeeLoad } = result;
 
-      // 3. Traiter les affectations automatiques (Priority 2)
-      // Trier les projets: d'abord par date de début (les plus proches), puis par nombre de slots à combler (les plus gros)
-      const sortedProjects = [...projects].sort((a, b) => {
-          // Calculate earliest start date for project A
-          const earliestStartA = a.needs.length > 0 ? Math.min(...a.needs.map(n => parseDate(n.debut))) : Infinity;
-          // Calculate earliest start date for project B
-          const earliestStartB = b.needs.length > 0 ? Math.min(...b.needs.map(n => parseDate(n.debut))) : Infinity;
-          
-          if (earliestStartA !== earliestStartB) {
-              return earliestStartA - earliestStartB;
-          }
-          
-          // Fallback: sort by total slots needed (descending)
-          const totalSlotsA = a.needs.reduce((sum, n) => sum + n.slots, 0);
-          const totalSlotsB = b.needs.reduce((sum, n) => sum + n.slots, 0);
-          return totalSlotsB - totalSlotsA;
-      });
+      let totalSlots = projects.reduce((sum, p) => sum + p.needs.reduce((nSum, n) => nSum + n.slots, 0), 0);
       
-      // Affectation par projet, puis par besoin
+      // Calculate total assigned slots
+      let totalAssigned = 0;
+      for (const projectId in assignments) {
+          for (const needId in assignments[projectId]) {
+              totalAssigned += assignments[projectId][needId].length;
+          }
+      }
+
+      summaryText.textContent =
+        `Postes remplis : ${totalAssigned}/${totalSlots} • ` +
+        `Employés utilisés : ${Object.keys(employeeAssignments).filter(id => employeeAssignments[id].length > 0).length}/${employees.length}`;
+
+      assignmentsContainer.innerHTML = "";
+
+      // Sort by the earliest start date of any need in the project
+      const projectsWithSortKey = projects.map(p => {
+          const minDate = p.needs.reduce((min, n) => (min === null || parseDate(n.debut) < min) ? parseDate(n.debut) : min, null);
+          return { ...p, sortDate: minDate };
+      });
+      const sortedProjects = projectsWithSortKey.sort((a, b) => a.sortDate - b.sortDate);
+
       for (const p of sortedProjects) {
-        assignments[p.id] = assignments[p.id] || {};
+        const block = document.createElement("div");
+        block.className = "project-block";
+
+        const totalSlotsProj = p.needs.reduce((sum, n) => sum + n.slots, 0);
+        const totalAssignedProj = Object.values(assignments[p.id] || {}).reduce((sum, arr) => sum + arr.length, 0);
         
-        // Trier les besoins: par date de début (les plus proches) puis par nombre de slots
-        const sortedNeeds = [...p.needs].sort((a, b) => {
-             if (parseDate(a.debut) !== parseDate(b.debut)) {
-                return parseDate(a.debut) - parseDate(b.debut);
-             }
-             return b.slots - a.slots;
-        });
-
-        for (const need of sortedNeeds) {
-          assignments[p.id][need.needId] = assignments[p.id][need.needId] || [];
-          const currentAssignmentsCount = assignments[p.id][need.needId].length;
-          const slotsToFill = need.slots - currentAssignmentsCount;
-
-          if (slotsToFill <= 0) continue; // Besoin déjà saturé par affectation fixe ou précédente
-
-          for (let i = 0; i < slotsToFill; i++) {
-            let candidates = [];
-            
-            for (const emp of employees) {
-              // Ne pas ré-affecter les employés qui ont une affectation fixe sur ce slot de temps
-              const isFixedOverlap = employeeAssignments[emp.id].some(
-                  a => a.isFixed && getNeedByRef(a.projectId, a.needId) && datesOverlap(need.debut, need.fin, getNeedByRef(a.projectId, a.needId).debut, getNeedByRef(a.projectId, a.needId).fin)
-              );
-              if (isFixedOverlap) continue;
-
-              const s = scoreEmployeeForNeed(emp, need, employeeAssignments);
-              if (s) {
-                // Check if this employee is already assigned to this specific need slot (shouldn't happen with the outer loop, but just in case)
-                const isAlreadyAssignedToThisNeed = assignments[p.id][need.needId].some(a => a.emp.id === emp.id);
-                if (!isAlreadyAssignedToThisNeed) {
-                    candidates.push({ emp, s, isFixed: false });
-                }
-              }
-            }
-
-            if (candidates.length === 0) continue;
-
-            // Sélectionner le meilleur candidat
-            candidates.sort((a, b) => b.s.finalScore - a.s.finalScore);
-            const chosen = candidates[0];
-            
-            // Affectation
-            assignments[p.id][need.needId].push(chosen);
-            employeeAssignments[chosen.emp.id].push({
-                projectId: p.id,
-                needId: need.needId,
-                debut: need.debut,
-                fin: need.fin,
-                projectName: p.nom,
-                isFixed: false // Indicate that this is an automatic assignment
-            });
-            totalAssignments++;
-          }
-        }
-      }
-
-      // 4. Afficher les résultats
-      renderPlanningResults(assignments, totalAssignments);
-      renderFixedList(); // Re-render to show final status of fixed assignments
-      setStatus("Planification IA générée avec succès.", false);
-    }
-    
-    // ===========================================
-    // RENDERING DES RÉSULTATS DE PLANIFICATION
-    // ===========================================
-
-    function renderPlanningResults(assignments, totalAssignments) {
-        assignmentsContainer.innerHTML = ''; // Clear previous results
-        
-        // 1. Render Summary
-        const summaryDiv = document.createElement("div");
-        summaryDiv.className = "result-header";
-        summaryDiv.innerHTML = `
-            <h3 style="font-size: 1.2rem; color: #38bdf8;">Résultats de Planification</h3>
-            <p id="summaryText" style="margin: 0; padding: 0; border: none; background: transparent;"></p>
+        const title = document.createElement("div");
+        title.className = "project-block-title";
+        title.innerHTML = `
+          <h3>${p.id} – ${p.nom}</h3>
+          <span>Affectation: ${totalAssignedProj}/${totalSlotsProj} slots remplis</span>
         `;
-        assignmentsContainer.appendChild(summaryDiv);
-        
-        const totalProjects = projects.length;
-        const projectsWithAssignments = Object.keys(assignments).filter(pid => {
-            const project = projects.find(p => p.id === pid);
-            if (!project) return false;
-            return project.needs.some(need => assignments[pid][need.needId] && assignments[pid][need.needId].length > 0);
-        }).length;
-        const totalEmployees = employees.length;
-        const employeesAssigned = new Set();
-        Object.values(assignments).forEach(needs => {
-            Object.values(needs).forEach(slotAssignments => {
-                slotAssignments.forEach(a => employeesAssigned.add(a.emp.id));
-            });
-        });
+        block.appendChild(title);
 
-        summaryText.innerHTML = `
-            <strong>Affectations: ${totalAssignments}</strong>
-            <div class="summary-stats">
-                <div class="summary-stat-item">Projets couverts: <span>${projectsWithAssignments} / ${totalProjects}</span></div>
-                <div class="summary-stat-item">Employés assignés: <span>${employeesAssigned.size} / ${totalEmployees}</span></div>
-            </div>
-        `;
-        
-        if (totalAssignments === 0) {
-            assignmentsContainer.innerHTML += '<p style="color: #9ca3af; font-style: italic;">Aucune affectation générée. Vérifiez vos données, les disponibilités et les conflits.</p>';
-            return;
-        }
-
-        // 2. Render Project Blocks
-        projects.sort((a, b) => a.id.localeCompare(b.id)).forEach(p => {
-            const projectAssignments = assignments[p.id];
-            if (!projectAssignments) return;
+        // Group assignments by need
+        for (const need of p.needs.sort((a, b) => parseDate(a.debut) - parseDate(b.debut))) {
+            const needAssignments = assignments[p.id] && assignments[p.id][need.needId] ? assignments[p.id][need.needId] : [];
             
-            const projectBlock = document.createElement("div");
-            projectBlock.className = "project-block";
+            const needSection = document.createElement("div");
+            needSection.className = "need-section";
             
-            // Project Title
-            const projectTitle = document.createElement("div");
-            projectTitle.className = "project-block-title";
-            projectTitle.innerHTML = `
-                <h3>${p.nom} (${p.id})</h3>
-                <small>Total Slots Besoins: ${p.needs.reduce((sum, n) => sum + n.slots, 0)}</small>
+            const needTitle = document.createElement("div");
+            needTitle.className = "need-section-title";
+            needTitle.innerHTML = `
+                <span>Besoin ID ${need.needId} : ${need.metier.toUpperCase()}</span>
+                <span>${needAssignments.length}/${need.slots} Slots | ${need.debut} → ${need.fin}</span>
             `;
-            projectBlock.appendChild(projectTitle);
+            needSection.appendChild(needTitle);
             
-            // Needs Sections
-            p.needs.sort((a, b) => parseDate(a.debut) - parseDate(b.debut)).forEach(need => {
-                const needAssignments = projectAssignments[need.needId] ? projectAssignments[need.needId] : [];
-                
-                if (needAssignments.length === 0) return; // Skip needs with no assignments
-                
-                const needSection = document.createElement("div");
-                needSection.className = "need-section";
-                
-                const needTitle = document.createElement("div");
-                needTitle.className = "need-title";
-                const slotsRemaining = need.slots - needAssignments.length;
-                const remainingText = slotsRemaining > 0 ? `<small class="red">${slotsRemaining} slots restants</small>` : '';
-                needTitle.innerHTML = `
-                    <strong>Besoin ${need.needId} - ${need.metier.toUpperCase()} (${needAssignments.length} / ${need.slots} slots)</strong>
-                    <small>Du ${need.debut} au ${need.fin}</small>
-                    ${remainingText}
-                `;
-                needSection.appendChild(needTitle);
-                
-                const assignmentsList = document.createElement("div");
-                assignmentsList.className = "need-assignments";
-                
-                // Sort assignments by score (descending)
-                needAssignments.sort((a, b) => b.s.finalScore - a.s.finalScore);
-
-                needAssignments.forEach(({ emp, s, isFixed }) => {
+            const list = document.createElement("div");
+            list.className = "assignment-list";
+            
+            if (needAssignments.length === 0) {
+                const no = document.createElement("div");
+                no.className = "no-assign";
+                no.textContent = `Aucun employé disponible/compatible pour ce besoin (${need.metier}).`;
+                list.appendChild(no);
+            } else {
+                for (const { emp, s, isFixed } of needAssignments) {
                     const card = document.createElement("div");
                     card.className = "assignment-card" + (isFixed ? ' fixed-assignment' : '');
+
                     const finalScorePercentage = (s.finalScore * 100).toFixed(1);
 
                     const top = document.createElement("div");
+                    top.className = "assignment-top";
                     top.innerHTML = `
-                        <span>${emp.nom} (${emp.id})</span>
-                        <small style="color: ${isFixed ? '#facc15' : '#4ade80'};">${isFixed ? 'Fixe' : 'IA'}</small>
+                      <span class="name">${emp.nom} ${isFixed ? '⭐ (Direct.)' : ''}</span>
+                      <div class="score-label">Score : ${finalScorePercentage}%</div>
                     `;
-                    card.appendChild(top);
                     
-                    const details = document.createElement("div");
-                    details.className = "assignment-details";
-                    details.innerHTML = `
-                        <p>Score Final: <strong>${finalScorePercentage}%</strong> (Comp: ${s.skillScore.toFixed(2)}, Dist: ${s.distanceScore.toFixed(2)}, Éval: ${s.evaluationScore.toFixed(2)})</p>
-                        <p>Distance: ${emp.distanceKm}km | Évaluation: ${emp.evaluation} | Compétences Mat.: ${s.matchedSkills} / ${s.totalRequiredSkills}</p>
-                    `;
-                    card.appendChild(details);
-                    assignmentsList.appendChild(card);
-                });
-                
-                needSection.appendChild(assignmentsList);
-                projectBlock.appendChild(needSection);
-            });
+                    const scoreBar = document.createElement('div');
+                    scoreBar.className = 'score-bar-container';
+                    scoreBar.innerHTML = `<div class="score-bar" style="width: ${finalScorePercentage}%;"></div>`;
 
-            // Only append the project block if it had assignments (already filtered above, but safe to check again)
-            if (projectBlock.children.length > 1) { 
-                assignmentsContainer.appendChild(projectBlock);
+                    const pills = document.createElement("div");
+                    pills.className = "pill-row";
+                    pills.innerHTML = `
+                      <span>${emp.metier || 'N/A'}</span>
+                      <span>Éval : ${(emp.evaluation || 0).toFixed(1)}/5</span>
+                      <span>Dist : ${emp.distanceKm || 'N/A'} km</span>
+                      <span>Affect. tot. : ${employeeLoad[emp.id] || 1}</span>
+                      <span>Dispo : ${emp.disponibilite || 'N/A'}</span>
+                    `;
+
+                    const detail = document.createElement("div");
+                    detail.className = "assignment-detail";
+                    detail.innerHTML = `
+                      Compétences : ${(emp.competences || []).join(", ")}<br/>
+                      Match requis : <strong>${(s.matched || 0)}/${(need.competencesRequises || []).length}</strong> (Compétences : ${(need.competencesRequises || []).join(", ")})<br/>
+                      Détail du score pondéré :
+                      <ul>
+                        <li>Compétences (50%) : ${(s.competenceScore * 50).toFixed(1)} / 50</li>
+                        <li>Évaluation (30%) : ${(s.evalScore * 30).toFixed(1)} / 30</li>
+                        <li>Distance (20%) : ${(s.distanceScore * 20).toFixed(1)} / 20</li>
+                        <li>Facteur de charge : ${(s.loadFactor * 100).toFixed(0)}%</li>
+                      </ul>
+                    `;
+
+                    card.appendChild(top);
+                    card.appendChild(scoreBar);
+                    card.appendChild(pills);
+                    card.appendChild(detail);
+                    list.appendChild(card);
+                }
             }
-        });
+            needSection.appendChild(list);
+            block.appendChild(needSection);
+        }
+
+        assignmentsContainer.appendChild(block);
+      }
+      
+      renderFixedList();
     }
 
+    function initFixedSelectors() {
+      if (!employees.length || !projects.length) {
+        fixedProjectSelect.innerHTML = '<option>Aucune donnée chargée</option>';
+        fixedEmployeeSelect.innerHTML = '<option>Aucune donnée chargée</option>';
+        return;
+      }
+
+      fixedProjectSelect.innerHTML = '';
+      fixedEmployeeSelect.innerHTML = '';
+
+      projects.forEach(p => {
+        const metiers = [...new Set(p.needs.map(n => n.metier))].join(', ');
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.textContent = `${p.id} – ${p.nom} (Métiers: ${metiers})`;
+        fixedProjectSelect.appendChild(opt);
+      });
+
+      employees.forEach(e => {
+        const opt = document.createElement("option");
+        opt.value = e.id;
+        opt.textContent = `${e.nom} (${e.metier || 'N/A'} - ${e.id} | Dispo: ${e.disponibilite || 'N/A'})`;
+        fixedEmployeeSelect.appendChild(opt);
+      });
+    }
 
     // ===========================================
     // ÉVÉNEMENTS
     // ===========================================
-    planAllBtn.addEventListener("click", generatePlanning);
-    clearResultsBtn.addEventListener("click", () => {
-        assignmentsContainer.innerHTML = `
-            <div class="result-header">
-              <h3 style="font-size: 1.2rem; color: #38bdf8;">Résultats de Planification</h3>
-              <p id="summaryText" style="margin: 0; padding: 0; border: none; background: transparent;"></p>
-            </div>
-            <p style="color: #9ca3af; font-style: italic;">Cliquez sur 'Générer une nouvelle planification (IA)' pour afficher les affectations.</p>
-        `;
-        summaryText.textContent = "Affectations: 0";
-        setStatus("Résultats effacés. Prêt pour une nouvelle planification.", false);
+    
+    // Événements de planification
+    planAllBtn.addEventListener("click", () => {
+      const result = planAllProjectsGlobally();
+      if (result) renderAssignments(result);
     });
 
     // Événements de gestion des données
@@ -1374,8 +1277,8 @@
     saveDataBtn.addEventListener("click", saveDataToLocalStorage);
     resetDataBtn.addEventListener("click", resetDataToDefault);
     
-    // Événements de gestion de projet (Formulaire)
-    saveProjectHeader.addEventListener('click', saveProjectHeader);
+    // Événements de gestion de projet (Header)
+    saveProjectHeaderBtn.addEventListener('click', saveProjectHeader);
     cancelEditBtn.addEventListener('click', (e) => {
         e.preventDefault();
         resetProjectForm();
@@ -1401,7 +1304,6 @@
       if (!exists) {
         fixedAssignments.push({ projectId, empId, status: 'pending', reason: null }); 
         renderFixedList();
-        summaryText.textContent = "Directive ajoutée. Cliquez sur 'Générer une nouvelle planification (IA)' pour mettre à jour les affectations.";
       }
     });
 
