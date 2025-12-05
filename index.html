@@ -227,7 +227,7 @@
       font-size: 0.78rem;
       color: #9ca3af;
     }
-    /* MISE À JOUR POUR SUPPRESSION INDIVIDUELLE */
+    /* Styles pour la gestion des conflits */
     .fixed-item {
       display: flex;
       justify-content: space-between;
@@ -246,6 +246,16 @@
       color: #f97373;
       font-size: 0.75rem;
       margin-top: 2px;
+      margin-bottom: 4px;
+    }
+    .fixed-item-solution { /* Nouveau style pour la solution */
+      font-size: 0.75rem;
+      color: #38bdf8;
+      background: #0c4a6e30;
+      border: 1px solid #0c4a6e;
+      padding: 4px 6px;
+      border-radius: 6px;
+      margin-top: 4px;
     }
     .fixed-item-success {
       color: #34d399;
@@ -253,7 +263,7 @@
     .fixed-item-content {
         flex-grow: 1; 
     }
-    .delete-fixed-btn { /* Style du bouton "X" */
+    .delete-fixed-btn { 
         background: #ef4444; 
         color: white; 
         border: none; 
@@ -266,7 +276,7 @@
         margin-left: 10px;
         cursor: pointer;
         transition: background-color 0.2s;
-        flex-shrink: 0; /* Empêche le rétrécissement */
+        flex-shrink: 0;
     }
     .delete-fixed-btn:hover {
         background: #dc2626;
@@ -300,7 +310,7 @@
 <body>
   <div class="app">
     <header>
-      <h1>Planificateur IA – Affectation globale (v3.3)</h1>
+      <h1>Planificateur IA – Affectation globale (v3.4)</h1>
       <p>
         Répartition globale des employés sur l’ensemble des projets, en respectant :
         <strong>Disponibilité > Compétences > Évaluation > Distance</strong>.
@@ -393,7 +403,7 @@
         const employees = [];
         const uniqueNames = new Set();
 
-        // 🚨 MISE À JOUR : Disponibilités Aléatoires
+        // MISE À JOUR : Disponibilités Aléatoires
         // 3/5 chances d'être disponible
         const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
 
@@ -500,7 +510,7 @@
 
     let fixedAssignments = [];
 
-    // NOUVELLE FONCTION POUR SUPPRIMER UNE DIRECTIVE
+    // Fonction pour supprimer une directive
     function removeFixedAssignment(index) {
       if (index >= 0 && index < fixedAssignments.length) {
         fixedAssignments.splice(index, 1);
@@ -509,12 +519,10 @@
         summaryText.textContent = "Directive supprimée. Cliquez sur 'Générer une nouvelle planification (IA)' pour mettre à jour les affectations.";
       }
     }
-    // FIN NOUVELLE FONCTION
 
 
     function scoreEmployeeForProject(emp, project, employeeLoad) {
-      // 🚨 MISE À JOUR : Filtre de Disponibilité (Priorité Absolue)
-      // Seuls les employés "Disponible" sont considérés
+      // Filtre de Disponibilité (Priorité Absolue)
       if (!emp.disponibilite.toLowerCase().includes("disponible")) return null; 
 
       if (emp.metier !== project.metier) return null;
@@ -583,7 +591,7 @@
         let status = 'assigned';
         let reason = null;
         
-        // 🚨 MISE À JOUR : Vérification de la disponibilité du candidat fixé
+        // Vérification de la disponibilité du candidat fixé
         if (!emp.disponibilite.toLowerCase().includes("disponible")) {
             status = 'conflict_dispo';
             reason = `Employé non disponible (${emp.disponibilite})`;
@@ -614,6 +622,9 @@
 
         fixedAssignments[i].status = status;
         fixedAssignments[i].reason = reason;
+        fixedAssignments[i].employeeName = emp.nom;
+        fixedAssignments[i].projectName = proj.nom;
+
 
         if (status === 'assigned') {
             const score = scoreEmployeeForProject(emp, proj, employeeLoad) || {
@@ -731,17 +742,32 @@
         div.className = "fixed-item";
         
         let statusText = '';
+        let solutionText = '';
         let statusClass = 'fixed-item-success';
         
+        // --- LOGIQUE D'AFFICHAGE DES CONFLITS ET SOLUTIONS ---
         switch(d.status) {
             case 'assigned':
                 statusText = '– Affectation RESPECTÉE.';
                 break;
-            case 'conflict_overlap':
-            case 'conflict_dispo':
             case 'conflict_metier':
+                statusText = `– CONFLIT : ${d.reason}`;
+                solutionText = `L'IA ne peut pas forcer le métier. **Action recommandée :** Annuler la directive ou trouver un employé compatible avec ${proj.metier} ou ayant des certifications croisées.`;
+                statusClass = 'fixed-item-error';
+                break;
+            case 'conflict_dispo':
+                statusText = `– CONFLIT : ${d.reason}`;
+                solutionText = `**Action recommandée :** Confirmer si la directive est prioritaire (Nécessite intervention RH) ou choisir un employé marqué 'Disponible'.`;
+                statusClass = 'fixed-item-error';
+                break;
             case 'conflict_slots':
                 statusText = `– CONFLIT : ${d.reason}`;
+                solutionText = `**Action recommandée :** Désaffecter manuellement l'employé avec le score le plus bas sur ${proj.id} ou augmenter la capacité du projet.`;
+                statusClass = 'fixed-item-error';
+                break;
+            case 'conflict_overlap':
+                statusText = `– CONFLIT : ${d.reason}`;
+                solutionText = `**Action recommandée :** Examiner les dates. Proposer un échange avec un employé du projet en conflit (${d.reason}) ou vérifier si le projet peut être fractionné.`;
                 statusClass = 'fixed-item-error';
                 break;
             default:
@@ -749,12 +775,15 @@
                 statusClass = 'fixed-item';
         }
 
+        let solutionHtml = solutionText ? `<div class="fixed-item-solution">${solutionText}</div>` : '';
+
         div.innerHTML = `
           <div class="fixed-item-content">
             • <span>${emp.nom}</span> doit être affecté à <span>${proj.id}</span>
             <div class="${statusClass}">
               ${statusText}
             </div>
+            ${solutionHtml}
           </div>
           <button class="delete-fixed-btn" data-index="${index}">X</button>
         `;
