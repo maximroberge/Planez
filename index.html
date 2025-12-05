@@ -2,10 +2,10 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Planif IA – Gestion des Projets et Affectation (v6.2)</title>
+  <title>Planif IA – Gestion des Projets et Affectation (v6.0)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Styles CSS (revus pour la clarté du résultat imbriqué) */
+    /* Styles CSS (revus pour la clarté du résultat) */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -108,104 +108,28 @@
     .project-management-item small { color: #9ca3af; }
     .project-management-actions button, .need-actions button { margin: 0 0 0 4px; padding: 4px 8px; font-size: 0.75rem; }
     
-    /* Styles de Résultat (Result Display Styles - Nested List) */
-    .project-block { 
-        border-top: 1px solid #1f2937; 
-        padding-top: 10px; 
-        margin-top: 10px; 
-    }
-    .project-block-title h3 { font-size: 1.1rem; margin-bottom: 4px; }
-    .project-block-title span { font-size: 0.8rem; color: #9ca3af; }
+    /* Styles de Résultat (Result Display Styles - Detailed) */
+    .project-block { border-top: 1px solid #1f2937; padding-top: 10px; margin-top: 10px; }
+    .project-block-title h3 { font-size: 0.95rem; }
+    .project-block-title span { font-size: 0.75rem; color: #9ca3af; }
     
-    /* NOUVEAUX STYLES POUR L'AFFICHAGE IMBRIQUÉ */
-    .need-header {
-        font-size: 0.9rem;
-        color: #4ade80;
-        margin-top: 12px;
-        padding-bottom: 5px;
-        border-bottom: 1px dotted #1f2937;
-    }
-    .assignment-list-nested {
-        margin-top: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding-left: 15px; /* Indent the cards under the need */
-        border-left: 2px solid #1f2937;
-        margin-bottom: 15px;
-    }
-    
-    .assignment-card {
+    .need-section {
+        background: #111827;
         padding: 10px;
         border-radius: 8px;
-        border: 1px solid #374151;
-        background: #0f172a;
-        font-size: 0.8rem;
+        margin-top: 8px;
+        border-left: 3px solid #6366f1;
     }
-    .assignment-card.fixed-assignment {
-        border-left: 4px solid #fde047;
-    }
-    .assignment-top {
+    .need-section-title {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 4px;
-    }
-    .assignment-top .name {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
         color: #e5e7eb;
     }
-    .score-label {
-        font-size: 0.85rem;
-        color: #38bdf8;
-        font-weight: 500;
-    }
-    .score-bar-container {
-        height: 6px;
-        background: #1f2937;
-        border-radius: 3px;
-        margin-bottom: 8px;
-    }
-    .score-bar {
-        height: 100%;
-        background: linear-gradient(90deg, #6366f1, #38bdf8);
-        border-radius: 3px;
-    }
-    .pill-row {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 8px;
-        flex-wrap: wrap;
-    }
-    .pill-row span {
-        background: #111827;
-        padding: 3px 6px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        color: #9ca3af;
-    }
-    .assignment-detail {
-        margin-top: 8px;
-        padding: 8px;
-        border-top: 1px dashed #1f2937;
-        font-size: 0.75rem;
-        line-height: 1.4;
-    }
-    .assignment-detail ul {
-        padding-left: 20px;
-        margin-top: 4px;
-    }
-    .assignment-detail li {
-        margin-bottom: 2px;
-        color: #9ca3af;
-    }
-    .no-assign {
-        color: #9ca3af;
-        font-style: italic;
-        padding: 5px;
-    }
     
+    /* Autres styles inchangés */
     .data-status { margin-top: 8px; padding: 8px; border-radius: 6px; font-size: 0.8rem; }
     .data-status.success { background: #166534; color: #dcfce7; }
     .data-status.error { background: #991b1b; color: #fee2e2; }
@@ -224,7 +148,7 @@
 <body>
   <div class="app">
     <header>
-      <h1>Planificateur IA – Affectation globale (v6.2)</h1>
+      <h1>Planificateur IA – Affectation globale (v6.0)</h1>
       <p>
         **Nouveau: Gestion avancée des projets** avec plusieurs corps de métier, dates et slots différents par besoin.
       </p>
@@ -390,8 +314,7 @@
     function generateEmployees(metier, count, prefix) {
         const employees = [];
         const uniqueNames = new Set();
-        // Plus de disponibles pour augmenter le taux d'affectation
-        const disponibilites = ["Disponible", "Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
+        const disponibilites = ["Disponible", "Disponible", "Disponible", "Sur chantier", "En congé"];
 
         for (let i = 1; i <= count; i++) {
             let nom;
@@ -426,86 +349,36 @@
     ];
     initialEmployees.sort((a, b) => a.nom.localeCompare(b.nom));
 
-    // NOUVELLE STRUCTURE DE PROJET: Génération de 25 Projets
-    
-    const projectNamesPool = [
-        "Arrêt chaudière", "Remplacement convoyeur", "Ligne vapeur HP", "Nettoyage silo", 
-        "Projet inox", "Maintenance usine", "Installation pompe", "Rénovation tuyauterie",
-        "Mise en service cuve", "Modernisation turbine", "Réparation échangeur", "Inspection réservoir",
-        "Nouvelle ligne de production", "Démantèlement équipement", "Remplacement de filtres",
-        "Tuyauterie chauffage", "Installation compresseur", "Optimisation four", "Réfection toiture",
-        "Projet d'isolation", "Calibrage instruments", "Travaux électriques", "Revamping moteur",
-        "Soudure haute pression", "Rénovation de pompe", "Projet de décontamination", "Reconditionnement de vannes"
+    // NOUVELLE STRUCTURE DE PROJET: Liste de Besoins (Needs)
+    const initialProjects = [
+      { id:"P-101", nom:"Arrêt chaudière – Bécancour", needs:[
+        { needId:1, metier:"soudeur", competencesRequises:["MIG","Espaces clos","ASP"], debut:"2026-01-10", fin:"2026-01-18", slots:4 },
+        { needId:2, metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Sécurité SIMDUT"], debut:"2026-01-15", fin:"2026-01-19", slots:2 }
+      ]},
+      { id:"P-102", nom:"Remplacement convoyeur – Trois-Rivières", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Maintenance préventive","Alignement","Hydraulique"], debut:"2026-01-12", fin:"2026-01-25", slots:5 },
+        { needId:2, metier:"soudeur", competencesRequises:["ARC"], debut:"2026-01-18", fin:"2026-01-20", slots:1 }
+      ]},
+      { id:"P-103", nom:"Ligne vapeur HP – Shawinigan", needs:[
+        { needId:1, metier:"tuyauteur", competencesRequises:["Lecture isométriques","ASME B31.3"], debut:"2026-01-20", fin:"2026-02-02", slots:3 },
+        { needId:2, metier:"manoeuvre", competencesRequises:["Manutention"], debut:"2026-01-25", fin:"2026-01-30", slots:1 }
+      ]},
+      { id:"P-104", nom:"Nettoyage silo – Bécancour", needs:[
+        { needId:1, metier:"manoeuvre", competencesRequises:["Nettoyage industriel","Espaces clos"], debut:"2026-01-15", fin:"2026-01-19", slots:4 }
+      ]},
+      { id:"P-105", nom:"Projet inox – Québec", needs:[
+        { needId:1, metier:"soudeur", competencesRequises:["TIG inox","Soudure inox","Lecture plan"], debut:"2026-02-01", fin:"2026-02-15", slots:5 }
+      ]},
+      { id:"P-106", nom:"Maintenance usine – Laval", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Maintenance corrective","Pneumatique","Réducteur"], debut:"2026-01-28", fin:"2026-02-10", slots:3 }
+      ]},
+      { id:"P-107", nom:"Installation pompe – Sherbrooke", needs:[
+        { needId:1, metier:"mecanicien", competencesRequises:["Hydraulique","Analyse vibration"], debut:"2026-02-05", fin:"2026-02-12", slots:2 }
+      ]},
+      { id:"P-108", nom:"Rénovation tuyauterie – Lévis", needs:[
+        { needId:1, metier:"tuyauteur", competencesRequises:["Filetage","Raccordement de vannes","Test d'étanchéité"], debut:"2026-02-10", fin:"2026-02-28", slots:5 }
+      ]},
     ];
-    const citiesPool = ["Bécancour", "Trois-Rivières", "Shawinigan", "Québec", "Laval", "Sherbrooke", "Lévis", "Drummondville", "Sorel-Tracy", "St-Hyacinthe", "Victoriaville", "Terrebonne", "Mascouche", "Blainville", "Granby"];
-    const metiersPool = ["mecanicien", "soudeur", "tuyauteur", "manoeuvre"];
-
-    function generateRandomProjects(count) {
-        const projects = [];
-        const usedNames = new Set();
-        
-        for (let i = 1; i <= count; i++) {
-            let nomBase = getRandomElement(projectNamesPool);
-            let nomSuffix = getRandomElement(citiesPool);
-            let nom = `${nomBase} – ${nomSuffix}`;
-            
-            // Prevent exact duplicate names by retrying the city
-            while(projects.some(p => p.nom === nom)) {
-                nomSuffix = getRandomElement(citiesPool);
-                nom = `${nomBase} – ${nomSuffix}`;
-            }
-
-            const id = `P-${String(i).padStart(3, '0')}`;
-            
-            const numNeeds = Math.floor(Math.random() * 3) + 1; // 1 to 3 needs per project
-            const needs = [];
-            let needIdCounter = 1;
-
-            // Generate base start date (Jan 10, 2026 to Feb 10, 2026)
-            const baseStart = new Date(2026, 0, 10 + Math.floor(Math.random() * 32));
-            
-            const usedMetiers = new Set();
-            
-            for (let j = 0; j < numNeeds; j++) {
-                let metier;
-                do {
-                    metier = getRandomElement(metiersPool);
-                } while (usedMetiers.has(metier) && numNeeds > 1);
-                usedMetiers.add(metier);
-
-                const startDaysOffset = Math.floor(Math.random() * 5);
-                const durationDays = Math.floor(Math.random() * 10) + 5; // 5 to 15 days
-
-                const debut = new Date(baseStart);
-                debut.setDate(baseStart.getDate() + startDaysOffset);
-                
-                const fin = new Date(debut);
-                fin.setDate(debut.getDate() + durationDays);
-
-                const slots = Math.floor(Math.random() * 4) + 1; // 1 to 4 slots
-
-                const availableSkills = allSkills[metier];
-                // Ensure required skills are less than or equal to the total available skills
-                const maxRequired = availableSkills.length > 3 ? 3 : availableSkills.length;
-                const requiredCount = Math.floor(Math.random() * maxRequired) + 1; 
-                const competencesRequises = availableSkills.sort(() => 0.5 - Math.random()).slice(0, requiredCount);
-
-                needs.push({
-                    needId: needIdCounter++,
-                    metier,
-                    competencesRequises,
-                    debut: debut.toISOString().substring(0, 10),
-                    fin: fin.toISOString().substring(0, 10),
-                    slots
-                });
-            }
-
-            projects.push({ id, nom, needs });
-        }
-        return projects;
-    }
-
-    const initialProjects = generateRandomProjects(25);
     
     // Variables globales
     let employees = [];
@@ -635,7 +508,7 @@
         localStorage.removeItem('planif_employees');
         localStorage.removeItem('planif_projects');
         fixedAssignments = [];
-        displayCurrentData(initialEmployees, generateRandomProjects(25)); // Regenerate 25 projects
+        displayCurrentData(initialEmployees, initialProjects);
         loadDataFromUI();
         renderFixedList();
         setStatus("Données réinitialisées aux valeurs par défaut.", false);
@@ -649,14 +522,8 @@
         needBeingEditedId = null;
         currentNeedId.value = 0;
         needMetierSelect.value = 'mecanicien';
-        // Set default dates to be in the period of generated projects (Jan-Feb 2026)
-        const today = new Date();
-        const defaultStart = new Date(2026, 0, 10); // Jan 10, 2026
-        const defaultEnd = new Date(2026, 0, 17); // Jan 17, 2026
-        
-        needDebutInput.value = defaultStart.toISOString().substring(0, 10);
-        needFinInput.value = defaultEnd.toISOString().substring(0, 10);
-        
+        needDebutInput.value = new Date().toISOString().substring(0, 10);
+        needFinInput.value = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10);
         needSlotsInput.value = 1;
         needCompetencesInput.value = '';
         saveNeedBtn.textContent = 'Ajouter ce besoin';
@@ -666,7 +533,6 @@
     function resetProjectForm() {
         projectBeingEdited = null;
         let nextIdNumber = projects.length + 1;
-        // Simple check to ensure ID is unique even if projects were deleted
         while(projects.some(p => p.id === 'P-' + String(nextIdNumber).padStart(3, '0'))) {
              nextIdNumber++;
         }
@@ -916,8 +782,6 @@
       const e1 = parseDate(n1.fin);
       const s2 = parseDate(n2.debut);
       const e2 = parseDate(n2.fin);
-      // Correction pour inclure les jours de fin (si fin est le 15, on peut commencer le 16)
-      // Check if one period ends before the other starts
       if (e1 < s2 || e2 < s1) return false;
       return true;
     }
@@ -949,8 +813,7 @@
       const empSkills = (emp.competences || []).map(c => c.toLowerCase());
       const matched = required.filter(r => empSkills.includes(r)).length;
       
-      // Assouplissement: Si des compétences sont requises, au moins 50% doivent matcher
-      if (required.length > 0 && matched / required.length < 0.5) return null; 
+      if (required.length > 0 && matched === 0) return null; // Must match at least one if skills are required
       
       const competenceScore = required.length > 0 ? matched / required.length : 1; 
       const evalScore = Math.min(Math.max(emp.evaluation || 0, 0), 5) / 5;
@@ -959,7 +822,6 @@
       
       let baseScore = 0.5 * competenceScore + 0.3 * evalScore + 0.2 * distanceScore;
       const load = employeeLoad[emp.id] || 0;
-      // loadFactor: 1/(1+0*0.5)=1 (load 0), 1/(1+1*0.5)=0.66, 1/(1+2*0.5)=0.5
       const loadFactor = 1 / (1 + load * 0.5); // Punition pour la charge de travail
       const finalScore = baseScore * loadFactor;
       
@@ -1052,7 +914,6 @@
                         overlap = true;
                         fixedAssignments[i].conflitNeedRef = assignedNeedRef;
                         reason = `Chevauchement avec ${assignedNeed.metier} de ${assignedNeedRef.projectId}`;
-                        fixedAssignments[i].status = 'conflict_overlap';
                         break;
                     }
                 }
@@ -1073,17 +934,14 @@
                 distanceScore: Math.max(0, 1 - ((emp.distanceKm || 50) / 50)), matched: (bestNeedForFixed.competencesRequises || []).length, loadFactor: 1 
             };
             
-            assignments[proj.id][bestNeedForFixed.needId].push({ emp, s: score, isFixed: true, needRef: { projectId: proj.id, needId: bestNeedForFixed.needId } });
+            assignments[proj.id][bestNeedForFixed.needId].push({ emp, s: score, isFixed: true });
 
             employeeAssignments[emp.id].push({ projectId: proj.id, needId: bestNeedForFixed.needId });
             employeeLoad[emp.id] = (employeeLoad[emp.id] || 0) + 1;
         }
 
-        if (fixedAssignments[i].status === 'pending') { // Only update if still pending
-            fixedAssignments[i].status = status;
-            fixedAssignments[i].reason = reason;
-        }
-        
+        fixedAssignments[i].status = status;
+        fixedAssignments[i].reason = reason;
         fixedAssignments[i].employeeName = emp.nom;
         fixedAssignments[i].projectName = proj.nom;
       }
@@ -1116,7 +974,7 @@
             if (conflit) continue;
 
             const s = scoreEmployeeForNeed(emp, need, employeeLoad);
-            if (s) { candidates.push({ emp, s, isFixed: false, needRef: { projectId, needId } }); }
+            if (s) { candidates.push({ emp, s, isFixed: false }); }
           }
 
           if (candidates.length === 0) continue;
@@ -1134,7 +992,7 @@
     }
 
     // ===========================================
-    // RENDU UI (RÉVISÉ POUR LISTE IMBRIQUÉE)
+    // RENDU UI
     // ===========================================
     
     function renderProjectsList() {
@@ -1180,80 +1038,69 @@
       fixedAssignments.forEach((d, index) => { 
         const proj = projects.find(pr => pr.id === d.projectId);
         const emp = employees.find(e => e.id === d.empId);
-        
-        // Skip rendering if employee or project can't be found (due to deletion)
-        if (!proj || !emp) {
-             // Forcing cleanup of fixed assignments with missing projects/employees might be safer here
-             if (!proj) d.status = 'conflict_proj_not_found';
-             if (!emp) d.status = 'conflict_emp_not_found';
-        }
+        if (!proj || !emp) return;
         
         const div = document.createElement("div");
         div.className = "fixed-item";
         
         let statusText = '';
         let solutionText = '';
+        let statusClass = 'fixed-item-success';
         
         let needInfo = '';
-        let assignedNeed = null;
-        if (d.needRef) {
-            assignedNeed = getNeedByRef(d.needRef);
-        }
-        // Fallback or display based on current assignment status
-        if (d.status === 'assigned' && assignedNeed) {
+        const assignedNeed = getNeedByRef({ projectId: d.projectId, needId: d.needId });
+        if (assignedNeed) {
             needInfo = ` (Besoin: ${assignedNeed.metier} ${assignedNeed.debut}→${assignedNeed.fin})`;
-        } else if (d.conflitNeedRef) {
-             const conflictNeed = getNeedByRef(d.conflitNeedRef);
-             needInfo = ` (Conflit avec ${d.conflitNeedRef.projectId} - ${conflictNeed ? conflictNeed.metier : 'N/A'})`;
+        } else if (d.needId) {
+             needInfo = ` (Besoin ID ${d.needId} - Introuvable)`;
         }
-
 
         switch(d.status) {
             case 'assigned':
-                statusText = `Affectation RESPECTÉE${needInfo}.`;
+                statusText = `– Affectation RESPECTÉE${needInfo}.`;
                 break;
             case 'conflict_metier':
-                statusText = `CONFLIT : Métier (${emp ? emp.metier : 'N/A'}) non requis.`;
+                statusText = `– CONFLIT : Métier (${emp.metier || 'N/A'}) non requis.`;
                 solutionText = `**Action :** Le projet n'a pas de besoin pour ce métier.`;
+                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_dispo':
-                statusText = `CONFLIT : Employé indisponible (${emp ? emp.disponibilite : 'N/A'}).`;
+                statusText = `– CONFLIT : Employé indisponible (${emp.disponibilite || 'N/A'}).`;
                 solutionText = `**Action :** Mettre à jour la disponibilité.`;
+                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_slots':
-                statusText = `CONFLIT : Slots complets pour un besoin compatible.`;
+                statusText = `– CONFLIT : Slots complets pour un besoin compatible.`;
                 solutionText = `**Action :** Augmenter les slots dans le formulaire Projet.`;
+                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_overlap':
-                statusText = `CONFLIT : Chevauchement${needInfo}.`;
+                const conflictNeed = getNeedByRef(d.conflitNeedRef);
+                statusText = `– CONFLIT : Chevauchement avec ${d.conflitNeedRef.projectId} (${conflictNeed ? conflictNeed.metier : 'N/A'}).`;
                 solutionText = `**Action :** Examiner les dates. Proposer un échange.`;
+                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_proj_not_found':
-                statusText = `CONFLIT : Projet ${d.projectId} introuvable.`;
-                solutionText = `**Action :** Supprimer cette directive ou créer le projet.`;
-                break;
-            case 'conflict_emp_not_found':
-                statusText = `CONFLIT : Employé ${d.empId} introuvable.`;
-                solutionText = `**Action :** Supprimer cette directive.`;
+                statusText = `– CONFLIT : Projet ${d.projectId} introuvable.`;
+                solutionText = `**Action :** Vérifier l'ID du projet.`;
+                statusClass = 'fixed-item-error';
                 break;
             default:
-                statusText = 'Échec de l\'affectation (Raison: ' + (d.reason || 'N/A') + ').';
-                break;
+                statusText = '– Échec de l\'affectation.';
+                statusClass = 'fixed-item-error';
         }
 
-        let solutionHtml = solutionText ? `<div class="fixed-item-solution" style="color:#fde047; font-size:0.75rem; margin-top:4px;">${solutionText}</div>` : '';
-        let statusClass = d.status === 'assigned' ? 'fixed-item-success' : 'fixed-item-error';
+        let solutionHtml = solutionText ? `<div class="fixed-item-solution">${solutionText}</div>` : '';
 
         div.innerHTML = `
           <div class="fixed-item-content">
-            <strong style="font-size: 0.9rem;">• ${emp ? emp.nom : d.empId}</strong> doit être affecté à 
-            <span style="color:#38bdf8;">${proj ? proj.nom : d.projectId}</span>
-            <div class="${statusClass}" style="margin-top:2px;">
-              <span style="font-size:0.8rem; color:${d.status === 'assigned' ? '#4ade80' : '#f97373'};">${statusText}</span>
+            • <span>${emp.nom}</span> doit être affecté à <span>${proj.id}</span>
+            <div class="${d.status === 'assigned' ? 'fixed-item-success' : 'fixed-item-error'}">
+              ${statusText}
             </div>
             ${solutionHtml}
           </div>
-          <button class="delete-fixed-btn" data-index="${index}" style="background:#dc2626; padding: 4px 8px; font-size: 0.6rem;">X</button>
+          <button class="delete-fixed-btn" data-index="${index}">X</button>
         `;
         fixedList.appendChild(div);
       });
@@ -1264,14 +1111,6 @@
           removeFixedAssignment(parseInt(index));
         });
       });
-    }
-
-    function removeFixedAssignment(index) {
-        fixedAssignments.splice(index, 1);
-        renderFixedList();
-        // Optionnel: relancer la planif après suppression d'une directive
-        const result = planAllProjectsGlobally();
-        if (result) renderAssignments(result);
     }
 
     function renderAssignments(result) {
@@ -1311,36 +1150,34 @@
         title.className = "project-block-title";
         title.innerHTML = `
           <h3>${p.id} – ${p.nom}</h3>
-          <span>Affectation: ${totalAssignedProj}/${totalSlotsProj} slots remplis sur ${p.needs.length} besoins.</span>
+          <span>Affectation: ${totalAssignedProj}/${totalSlotsProj} slots remplis</span>
         `;
         block.appendChild(title);
 
-        // NOUVEAU: Affichage Imbriqué par Besoin (Need)
+        // Group assignments by need
         for (const need of p.needs.sort((a, b) => parseDate(a.debut) - parseDate(b.debut))) {
-            const needAssignments = assignments[p.id][need.needId] || [];
+            const needAssignments = assignments[p.id] && assignments[p.id][need.needId] ? assignments[p.id][need.needId] : [];
             
-            const needHeader = document.createElement("h4");
-            needHeader.className = "need-header";
-            needHeader.innerHTML = `
-                Besoin ID ${need.needId} : **${need.metier.toUpperCase()}** (${needAssignments.length} / ${need.slots} slots)
-                <span style="font-weight: normal; color: #9ca3af; margin-left: 10px;">
-                    ${need.debut} → ${need.fin}
-                </span>
+            const needSection = document.createElement("div");
+            needSection.className = "need-section";
+            
+            const needTitle = document.createElement("div");
+            needTitle.className = "need-section-title";
+            needTitle.innerHTML = `
+                <span>Besoin ID ${need.needId} : ${need.metier.toUpperCase()}</span>
+                <span>${needAssignments.length}/${need.slots} Slots | ${need.debut} → ${need.fin}</span>
             `;
-            block.appendChild(needHeader);
+            needSection.appendChild(needTitle);
             
             const list = document.createElement("div");
-            list.className = "assignment-list-nested";
+            list.className = "assignment-list";
             
             if (needAssignments.length === 0) {
                 const no = document.createElement("div");
                 no.className = "no-assign";
-                no.textContent = `Aucun employé n'a pu être affecté à ce besoin spécifique.`;
+                no.textContent = `Aucun employé disponible/compatible pour ce besoin (${need.metier}).`;
                 list.appendChild(no);
             } else {
-                // Sort by score (the best first) for THIS specific need
-                needAssignments.sort((a, b) => b.s.finalScore - a.s.finalScore);
-                
                 for (const { emp, s, isFixed } of needAssignments) {
                     const card = document.createElement("div");
                     card.className = "assignment-card" + (isFixed ? ' fixed-assignment' : '');
@@ -1350,7 +1187,7 @@
                     const top = document.createElement("div");
                     top.className = "assignment-top";
                     top.innerHTML = `
-                      <span class="name">${emp.nom} ${isFixed ? '⭐ (Directive)' : ''}</span>
+                      <span class="name">${emp.nom} ${isFixed ? '⭐ (Direct.)' : ''}</span>
                       <div class="score-label">Score : ${finalScorePercentage}%</div>
                     `;
                     
@@ -1361,7 +1198,7 @@
                     const pills = document.createElement("div");
                     pills.className = "pill-row";
                     pills.innerHTML = `
-                      <span>Métier: ${emp.metier || 'N/A'}</span>
+                      <span>${emp.metier || 'N/A'}</span>
                       <span>Éval : ${(emp.evaluation || 0).toFixed(1)}/5</span>
                       <span>Dist : ${emp.distanceKm || 'N/A'} km</span>
                       <span>Affect. tot. : ${employeeLoad[emp.id] || 1}</span>
@@ -1371,12 +1208,8 @@
                     const detail = document.createElement("div");
                     detail.className = "assignment-detail";
                     detail.innerHTML = `
-                      **Détails de l'affectation sur le besoin (ID ${need.needId}) :**
-                      <br/>
-                      Compétences : ${(emp.competences || []).join(", ")}
-                      <br/>
-                      Match requis : <strong>${(s.matched || 0)}/${(need.competencesRequises || []).length}</strong> (Requis : ${(need.competencesRequises || []).join(", ")})
-                      <br/>
+                      Compétences : ${(emp.competences || []).join(", ")}<br/>
+                      Match requis : <strong>${(s.matched || 0)}/${(need.competencesRequises || []).length}</strong> (Compétences : ${(need.competencesRequises || []).join(", ")})<br/>
                       Détail du score pondéré :
                       <ul>
                         <li>Compétences (50%) : ${(s.competenceScore * 50).toFixed(1)} / 50</li>
@@ -1393,9 +1226,9 @@
                     list.appendChild(card);
                 }
             }
-            block.appendChild(list);
+            needSection.appendChild(list);
+            block.appendChild(needSection);
         }
-        // FIN: Affichage Imbriqué par Besoin (Need)
 
         assignmentsContainer.appendChild(block);
       }
