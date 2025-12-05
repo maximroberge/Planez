@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Planif IA – Gestion des Projets et Affectation (v6.0)</title>
+  <title>Planif IA – Gestion des Projets et Affectation (v6.1)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     /* Styles CSS (revus pour la clarté du résultat) */
@@ -108,28 +108,91 @@
     .project-management-item small { color: #9ca3af; }
     .project-management-actions button, .need-actions button { margin: 0 0 0 4px; padding: 4px 8px; font-size: 0.75rem; }
     
-    /* Styles de Résultat (Result Display Styles - Detailed) */
-    .project-block { border-top: 1px solid #1f2937; padding-top: 10px; margin-top: 10px; }
-    .project-block-title h3 { font-size: 0.95rem; }
-    .project-block-title span { font-size: 0.75rem; color: #9ca3af; }
-    
-    .need-section {
-        background: #111827;
+    /* Styles de Résultat (Result Display Styles - Flat List) */
+    .project-block { 
+        border-top: 1px solid #1f2937; 
+        padding-top: 10px; 
+        margin-top: 10px; 
+    }
+    .project-block-title h3 { font-size: 1.1rem; margin-bottom: 4px; }
+    .project-block-title span { font-size: 0.8rem; color: #9ca3af; }
+    .assignment-list-flat {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .assignment-card {
         padding: 10px;
         border-radius: 8px;
-        margin-top: 8px;
-        border-left: 3px solid #6366f1;
+        border: 1px solid #374151;
+        background: #0f172a;
+        font-size: 0.8rem;
     }
-    .need-section-title {
+    .assignment-card.fixed-assignment {
+        border-left: 4px solid #fde047;
+    }
+    .assignment-top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    .assignment-top .name {
         font-weight: 600;
-        font-size: 0.85rem;
-        margin-bottom: 6px;
+        font-size: 0.9rem;
         color: #e5e7eb;
     }
+    .score-label {
+        font-size: 0.85rem;
+        color: #38bdf8;
+        font-weight: 500;
+    }
+    .score-bar-container {
+        height: 6px;
+        background: #1f2937;
+        border-radius: 3px;
+        margin-bottom: 8px;
+    }
+    .score-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #38bdf8);
+        border-radius: 3px;
+    }
+    .pill-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+    }
+    .pill-row span {
+        background: #111827;
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        color: #9ca3af;
+    }
+    .assignment-detail {
+        margin-top: 8px;
+        padding: 8px;
+        border-top: 1px dashed #1f2937;
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+    .assignment-detail ul {
+        padding-left: 20px;
+        margin-top: 4px;
+    }
+    .assignment-detail li {
+        margin-bottom: 2px;
+        color: #9ca3af;
+    }
+    .no-assign {
+        color: #9ca3af;
+        font-style: italic;
+        padding: 5px;
+    }
     
-    /* Autres styles inchangés */
     .data-status { margin-top: 8px; padding: 8px; border-radius: 6px; font-size: 0.8rem; }
     .data-status.success { background: #166534; color: #dcfce7; }
     .data-status.error { background: #991b1b; color: #fee2e2; }
@@ -148,7 +211,7 @@
 <body>
   <div class="app">
     <header>
-      <h1>Planificateur IA – Affectation globale (v6.0)</h1>
+      <h1>Planificateur IA – Affectation globale (v6.1)</h1>
       <p>
         **Nouveau: Gestion avancée des projets** avec plusieurs corps de métier, dates et slots différents par besoin.
       </p>
@@ -782,6 +845,7 @@
       const e1 = parseDate(n1.fin);
       const s2 = parseDate(n2.debut);
       const e2 = parseDate(n2.fin);
+      // Correction pour inclure les jours de fin (si fin est le 15, on peut commencer le 16)
       if (e1 < s2 || e2 < s1) return false;
       return true;
     }
@@ -914,6 +978,7 @@
                         overlap = true;
                         fixedAssignments[i].conflitNeedRef = assignedNeedRef;
                         reason = `Chevauchement avec ${assignedNeed.metier} de ${assignedNeedRef.projectId}`;
+                        fixedAssignments[i].status = 'conflict_overlap';
                         break;
                     }
                 }
@@ -940,8 +1005,11 @@
             employeeLoad[emp.id] = (employeeLoad[emp.id] || 0) + 1;
         }
 
-        fixedAssignments[i].status = status;
-        fixedAssignments[i].reason = reason;
+        if (fixedAssignments[i].status === 'pending') { // Only update if still pending
+            fixedAssignments[i].status = status;
+            fixedAssignments[i].reason = reason;
+        }
+        
         fixedAssignments[i].employeeName = emp.nom;
         fixedAssignments[i].projectName = proj.nom;
       }
@@ -992,7 +1060,7 @@
     }
 
     // ===========================================
-    // RENDU UI
+    // RENDU UI (RÉVISÉ POUR LISTE PLATTE)
     // ===========================================
     
     function renderProjectsList() {
@@ -1045,7 +1113,6 @@
         
         let statusText = '';
         let solutionText = '';
-        let statusClass = 'fixed-item-success';
         
         let needInfo = '';
         const assignedNeed = getNeedByRef({ projectId: d.projectId, needId: d.needId });
@@ -1062,32 +1129,27 @@
             case 'conflict_metier':
                 statusText = `– CONFLIT : Métier (${emp.metier || 'N/A'}) non requis.`;
                 solutionText = `**Action :** Le projet n'a pas de besoin pour ce métier.`;
-                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_dispo':
                 statusText = `– CONFLIT : Employé indisponible (${emp.disponibilite || 'N/A'}).`;
                 solutionText = `**Action :** Mettre à jour la disponibilité.`;
-                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_slots':
                 statusText = `– CONFLIT : Slots complets pour un besoin compatible.`;
                 solutionText = `**Action :** Augmenter les slots dans le formulaire Projet.`;
-                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_overlap':
                 const conflictNeed = getNeedByRef(d.conflitNeedRef);
                 statusText = `– CONFLIT : Chevauchement avec ${d.conflitNeedRef.projectId} (${conflictNeed ? conflictNeed.metier : 'N/A'}).`;
                 solutionText = `**Action :** Examiner les dates. Proposer un échange.`;
-                statusClass = 'fixed-item-error';
                 break;
             case 'conflict_proj_not_found':
                 statusText = `– CONFLIT : Projet ${d.projectId} introuvable.`;
                 solutionText = `**Action :** Vérifier l'ID du projet.`;
-                statusClass = 'fixed-item-error';
                 break;
             default:
                 statusText = '– Échec de l\'affectation.';
-                statusClass = 'fixed-item-error';
+                break;
         }
 
         let solutionHtml = solutionText ? `<div class="fixed-item-solution">${solutionText}</div>` : '';
@@ -1111,6 +1173,14 @@
           removeFixedAssignment(parseInt(index));
         });
       });
+    }
+
+    function removeFixedAssignment(index) {
+        fixedAssignments.splice(index, 1);
+        renderFixedList();
+        // Optionnel: relancer la planif après suppression d'une directive
+        const result = planAllProjectsGlobally();
+        if (result) renderAssignments(result);
     }
 
     function renderAssignments(result) {
@@ -1150,86 +1220,89 @@
         title.className = "project-block-title";
         title.innerHTML = `
           <h3>${p.id} – ${p.nom}</h3>
-          <span>Affectation: ${totalAssignedProj}/${totalSlotsProj} slots remplis</span>
+          <span>Affectation: ${totalAssignedProj}/${totalSlotsProj} slots remplis sur ${p.needs.length} besoins.</span>
         `;
         block.appendChild(title);
 
-        // Group assignments by need
-        for (const need of p.needs.sort((a, b) => parseDate(a.debut) - parseDate(b.debut))) {
-            const needAssignments = assignments[p.id] && assignments[p.id][need.needId] ? assignments[p.id][need.needId] : [];
-            
-            const needSection = document.createElement("div");
-            needSection.className = "need-section";
-            
-            const needTitle = document.createElement("div");
-            needTitle.className = "need-section-title";
-            needTitle.innerHTML = `
-                <span>Besoin ID ${need.needId} : ${need.metier.toUpperCase()}</span>
-                <span>${needAssignments.length}/${need.slots} Slots | ${need.debut} → ${need.fin}</span>
-            `;
-            needSection.appendChild(needTitle);
-            
-            const list = document.createElement("div");
-            list.className = "assignment-list";
-            
-            if (needAssignments.length === 0) {
-                const no = document.createElement("div");
-                no.className = "no-assign";
-                no.textContent = `Aucun employé disponible/compatible pour ce besoin (${need.metier}).`;
-                list.appendChild(no);
-            } else {
-                for (const { emp, s, isFixed } of needAssignments) {
-                    const card = document.createElement("div");
-                    card.className = "assignment-card" + (isFixed ? ' fixed-assignment' : '');
-
-                    const finalScorePercentage = (s.finalScore * 100).toFixed(1);
-
-                    const top = document.createElement("div");
-                    top.className = "assignment-top";
-                    top.innerHTML = `
-                      <span class="name">${emp.nom} ${isFixed ? '⭐ (Direct.)' : ''}</span>
-                      <div class="score-label">Score : ${finalScorePercentage}%</div>
-                    `;
-                    
-                    const scoreBar = document.createElement('div');
-                    scoreBar.className = 'score-bar-container';
-                    scoreBar.innerHTML = `<div class="score-bar" style="width: ${finalScorePercentage}%;"></div>`;
-
-                    const pills = document.createElement("div");
-                    pills.className = "pill-row";
-                    pills.innerHTML = `
-                      <span>${emp.metier || 'N/A'}</span>
-                      <span>Éval : ${(emp.evaluation || 0).toFixed(1)}/5</span>
-                      <span>Dist : ${emp.distanceKm || 'N/A'} km</span>
-                      <span>Affect. tot. : ${employeeLoad[emp.id] || 1}</span>
-                      <span>Dispo : ${emp.disponibilite || 'N/A'}</span>
-                    `;
-
-                    const detail = document.createElement("div");
-                    detail.className = "assignment-detail";
-                    detail.innerHTML = `
-                      Compétences : ${(emp.competences || []).join(", ")}<br/>
-                      Match requis : <strong>${(s.matched || 0)}/${(need.competencesRequises || []).length}</strong> (Compétences : ${(need.competencesRequises || []).join(", ")})<br/>
-                      Détail du score pondéré :
-                      <ul>
-                        <li>Compétences (50%) : ${(s.competenceScore * 50).toFixed(1)} / 50</li>
-                        <li>Évaluation (30%) : ${(s.evalScore * 30).toFixed(1)} / 30</li>
-                        <li>Distance (20%) : ${(s.distanceScore * 20).toFixed(1)} / 20</li>
-                        <li>Facteur de charge : ${(s.loadFactor * 100).toFixed(0)}%</li>
-                      </ul>
-                    `;
-
-                    card.appendChild(top);
-                    card.appendChild(scoreBar);
-                    card.appendChild(pills);
-                    card.appendChild(detail);
-                    list.appendChild(card);
-                }
+        // NOUVEAU: Aplatir les affectations pour tous les besoins du projet
+        let allProjectAssignments = [];
+        if (assignments[p.id]) {
+            for (const need of p.needs) {
+                const needAssignments = assignments[p.id][need.needId] || [];
+                needAssignments.forEach(a => {
+                    allProjectAssignments.push({ ...a, needDetails: need });
+                });
             }
-            needSection.appendChild(list);
-            block.appendChild(needSection);
         }
+        
+        // Tri par score (le meilleur d'abord)
+        allProjectAssignments.sort((a, b) => b.s.finalScore - a.s.finalScore);
+        
+        const list = document.createElement("div");
+        list.className = "assignment-list-flat";
+        
+        if (allProjectAssignments.length === 0) {
+            const no = document.createElement("div");
+            no.className = "no-assign";
+            no.textContent = `Aucun employé n'a pu être affecté à ce projet.`;
+            list.appendChild(no);
+        } else {
+            for (const { emp, s, isFixed, needDetails } of allProjectAssignments) {
+                const card = document.createElement("div");
+                card.className = "assignment-card" + (isFixed ? ' fixed-assignment' : '');
 
+                const finalScorePercentage = (s.finalScore * 100).toFixed(1);
+
+                const top = document.createElement("div");
+                top.className = "assignment-top";
+                top.innerHTML = `
+                  <span class="name">${emp.nom} ${isFixed ? '⭐ (Directive)' : ''}</span>
+                  <div class="score-label">Score : ${finalScorePercentage}%</div>
+                `;
+                
+                const scoreBar = document.createElement('div');
+                scoreBar.className = 'score-bar-container';
+                scoreBar.innerHTML = `<div class="score-bar" style="width: ${finalScorePercentage}%;"></div>`;
+
+                const pills = document.createElement("div");
+                pills.className = "pill-row";
+                pills.innerHTML = `
+                  <span>Métier: ${emp.metier || 'N/A'}</span>
+                  <span>Éval : ${(emp.evaluation || 0).toFixed(1)}/5</span>
+                  <span>Dist : ${emp.distanceKm || 'N/A'} km</span>
+                  <span>Affect. tot. : ${employeeLoad[emp.id] || 1}</span>
+                  <span>Dispo : ${emp.disponibilite || 'N/A'}</span>
+                `;
+
+                const detail = document.createElement("div");
+                detail.className = "assignment-detail";
+                detail.innerHTML = `
+                  **Besoin Spécifique (ID ${needDetails.needId} - ${needDetails.metier}) :**
+                  <br/>
+                  Période: **${needDetails.debut} → ${needDetails.fin}**
+                  <br/>
+                  Compétences : ${(emp.competences || []).join(", ")}
+                  <br/>
+                  Match requis : <strong>${(s.matched || 0)}/${(needDetails.competencesRequises || []).length}</strong> (Requis : ${(needDetails.competencesRequises || []).join(", ")})
+                  <br/>
+                  Détail du score pondéré :
+                  <ul>
+                    <li>Compétences (50%) : ${(s.competenceScore * 50).toFixed(1)} / 50</li>
+                    <li>Évaluation (30%) : ${(s.evalScore * 30).toFixed(1)} / 30</li>
+                    <li>Distance (20%) : ${(s.distanceScore * 20).toFixed(1)} / 20</li>
+                    <li>Facteur de charge : ${(s.loadFactor * 100).toFixed(0)}%</li>
+                  </ul>
+                `;
+
+                card.appendChild(top);
+                card.appendChild(scoreBar);
+                card.appendChild(pills);
+                card.appendChild(detail);
+                list.appendChild(card);
+            }
+        }
+        
+        block.appendChild(list);
         assignmentsContainer.appendChild(block);
       }
       
